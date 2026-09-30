@@ -2,7 +2,7 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Lumaris - Battle Box, Prop Hunt & Parkour</title>
 <meta name="description" content="Lumaris Minecraft server: leaderboards and player profiles for Battle Box, Prop Hunt and Hub Parkour.">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Figtree:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#060813;--pn:#0e1325cc;--ln:#ffffff14;--c:#5ee7ff;--p:#b388ff;--t:#e9edfb;--m:#8d97b8;--g:#5dffa0;--r:#ff7b93;--y:#ffd479;--d:'Unbounded',sans-serif;--b:'Figtree',sans-serif}
 *{box-sizing:border-box;margin:0}html{scroll-behavior:smooth}
@@ -88,7 +88,7 @@ footer{padding:34px 0;color:var(--m);font-size:14px;text-align:center;border-top
 .rv{opacity:0;transform:translateY(20px);transition:.7s}.rv.in{opacity:1;transform:none}
 @media(max-width:860px){nav .w{gap:16px;overflow-x:auto}.sw{display:none}.hero .w,.modes,.two{grid-template-columns:1fr}.ph{grid-template-columns:1fr;text-align:center}.ph .sk{margin:auto}.badges,.cur{justify-content:center}.xp{margin:auto}.ring{margin:auto}.pod{grid-template-columns:1fr}.pd.f{order:-1!important}th:nth-child(n+5),td:nth-child(n+5){display:none}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
-:root{--bg:#06080f;--pn:#0f1320cc;--ln:#ffffff14;--c:#8fe3ff;--p:#ffc45e;--t:#eef2ff;--m:#8b93ad;--g:#7dffc4;--r:#ff8a9a;--y:#ffd27a;--d:'Fraunces',serif;--b:'Figtree',sans-serif;--mx:50vw;--my:25vh}
+:root{--bg:#06080f;--pn:#0f1320cc;--ln:#ffffff14;--c:#8fe3ff;--p:#ffc45e;--t:#eef2ff;--m:#8b93ad;--g:#7dffc4;--r:#ff8a9a;--y:#ffd27a;--d:'Syne',sans-serif;--b:'Manrope',sans-serif;--mx:50vw;--my:25vh}
 body{background:var(--bg)}
 body:before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(520px circle at var(--mx) var(--my),#ffc45e22,transparent 65%),radial-gradient(900px 500px at 85% -10%,#8fe3ff14,transparent 60%),radial-gradient(700px 500px at 0 100%,#ffc45e0d,transparent 60%)}
 h1,h2{font-weight:600;letter-spacing:-.02em}h1{font-size:clamp(42px,6.6vw,84px)}
@@ -109,6 +109,9 @@ body[data-v=arcade] #arcade{display:block}#arcade{padding:100px 0 60px;min-heigh
 .sg{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:260px;margin:14px 0}.sp{aspect-ratio:1;border-radius:18px;border:1px solid #ffffff30;cursor:pointer;opacity:.3;transition:.12s}.sp.lit{opacity:1;transform:scale(1.05);box-shadow:0 0 44px currentColor}
 #pkc{width:100%;height:auto;display:block;border-radius:14px;background:#080b14;cursor:pointer;touch-action:manipulation}.pk{padding:12px;margin-bottom:22px}
 .tg button:hover{transform:scale(1.07)}.phg button:hover{background:#ffc45e2a;border-color:var(--p);box-shadow:0 0 26px #ffc45e77}.tg .c1{background:var(--c);border-color:var(--c);box-shadow:0 0 30px #8fe3ffaa}.tg .c2{background:var(--p);border-color:var(--p);box-shadow:0 0 30px #ffc45eaa}
+.logo{letter-spacing:.1em}h1,h2,h3{font-weight:700;letter-spacing:-.015em}h1{font-weight:800;font-size:clamp(36px,5.6vw,72px)}.st strong,.live strong,.mc h3{font-weight:700}
+.tm{height:8px;border-radius:5px;background:#ffffff14;overflow:hidden;margin:4px 0 10px;max-width:260px}.tm i{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--c),var(--p));transition:width .25s linear}
+.rx small{display:block;font:500 14px var(--b);margin-top:8px;color:var(--m)}.phg button:hover{filter:brightness(1.15)}.shk{animation:shk .28s}@keyframes shk{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
 </style></head><body>
 <canvas id="bg"></canvas>
 <nav><div class="w"><a class="logo" href="#/">LUMARIS</a><a class="l" href="#/">Home</a><a class="l" href="#/battlebox">Battle Box</a><a class="l" href="#/prophunt">Prop Hunt</a><a class="l" href="#/arcade">Arcade</a><a class="l" href="#/players">Profiles</a>
@@ -137,7 +140,7 @@ body[data-v=arcade] #arcade{display:block}#arcade{padding:100px 0 60px;min-heigh
 <div class="card"><h3>Hub reflex</h3><p class="sub" style="margin:4px 0 14px">Click when the box turns green.</p><button class="rx" id="rx">Click to start</button></div>
 <div class="card"><h3>Lumen memory</h3><p class="sub" style="margin:4px 0 0">Repeat the pattern. It grows every round.</p><div class="sg"><button class="sp" style="background:#ff8a9a;color:#ff8a9a" aria-label="Pad 1"></button><button class="sp" style="background:#ffd27a;color:#ffd27a" aria-label="Pad 2"></button><button class="sp" style="background:#7dffc4;color:#7dffc4" aria-label="Pad 3"></button><button class="sp" style="background:#8fe3ff;color:#8fe3ff" aria-label="Pad 4"></button></div><p id="sm" style="margin-bottom:12px">Press Start.</p><button class="tb" id="sst">Start</button></div></div></div></div>
 <div id="prof" class="view"><div class="w"><a class="back" href="#/players">&larr; Back to profiles</a><div id="pbody"></div></div></div>
-<footer>Lumaris is not affiliated with Mojang or Microsoft.</footer>
+<footer><button class="tb" id="snd" style="margin-bottom:14px">Sound: on</button><br>Lumaris is not affiliated with Mojang or Microsoft.</footer>
 
 <script>
 /* ---- SETTINGS: point DATA_URL at the file the plugin pushes (see README) ---- */
@@ -201,18 +204,36 @@ const show=k=>{$('#pp').innerHTML=panels[k];$('#pp').classList.remove('rv')};sho
 $('#ptabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;document.querySelectorAll('#ptabs button').forEach(x=>x.setAttribute('aria-selected',x===b));show(b.dataset.p)}}
 /* ---- routing ---- */
 const MI={battlebox:['Battle Box','Two teams fight over nine center blocks. Pick a kit, capture them all and climb the Elo ladder.'],prophunt:['Prop Hunt','Become the map. Hide, pose and outlast the hunters for points and podiums.']};
-let V='home',MK='battlebox',bb=null,ph=null;
-const bbNew=()=>bb={o:Array(9).fill(0),msg:'Click a block to claim it for your team.'};
-function bbDraw(){const el=$('#gm');if(!el||!bb)return;el.innerHTML=`<div class="tg bbg">${bb.o.map((v,i)=>`<button class="${v?'c'+v:''}" data-b="${i}" aria-label="Block ${i+1}"></button>`).join('')}</div><div><h3 style="font:700 18px var(--d)">Claim the box</h3><p class="sub" style="margin:6px 0 12px">${bb.msg}</p><button class="tb" data-r="bb">Reset</button></div>`}
-function bbEnd(s){if(s.o.every(v=>v)){const n=s.o.filter(v=>v==1).length;s.msg=n>4?`You captured ${n} of 9. Your team wins!`:`Rivals captured ${9-n} of 9. Try again.`}}
-const phNew=()=>ph={p:Math.random()*12|0,m:[],l:4,d:0,msg:'A prop is hiding in one of these blocks. You get 4 guesses.'};
-function phDraw(){const el=$('#gm');if(!el||!ph)return;el.innerHTML=`<div class="tg phg">${[...Array(12)].map((_,i)=>`<button class="${ph.m.includes(i)?'miss':ph.d&&i===ph.p?'c2':''}" data-h="${i}" aria-label="Block ${i+1}"></button>`).join('')}</div><div><h3 style="font:700 18px var(--d)">Find the prop</h3><p class="sub" style="margin:6px 0 12px">${ph.msg}</p><button class="tb" data-r="ph">Hide again</button></div>`}
+let V='home',MK='battlebox',bb=null,ph=null,SND=1,AC;
+const beep=(f,ms=120,ty='sine')=>{if(!SND)return;try{AC=AC||new AudioContext();const o=AC.createOscillator(),g=AC.createGain();o.type=ty;o.frequency.value=f;g.gain.value=.05;o.connect(g);g.connect(AC.destination);o.start();g.gain.exponentialRampToValueAtTime(.0001,AC.currentTime+ms/1000);o.stop(AC.currentTime+ms/1000)}catch(e){}};
+const best=(k,v)=>{try{let b=+localStorage['lm'+k]||0;if(v>b)localStorage['lm'+k]=b=v;return b}catch(e){window['_'+k]=Math.max(window['_'+k]||0,v||0);return window['_'+k]}};
+/* Hold the center (Battle Box) */
+const BBT=25,bbNew=()=>bb={o:Array(9).fill(0),sc:0,t:BBT,run:0,msg:'Click blocks to claim them. The rival steals yours. Hold all 9 to capture the box.'};
+function bbDraw(){const el=$('#gm');if(!el||!bb)return;
+if(!el.querySelector('[data-b]'))el.innerHTML=`<div class="tg bbg">${[...Array(9)].map((_,i)=>`<button data-b="${i}" aria-label="Block ${i+1}"></button>`).join('')}</div><div><h3 style="font:700 20px var(--d)">Hold the center</h3><p class="sub" id="bm" style="margin:6px 0 10px"></p><div class="tm"><i id="bt"></i></div><p class="note" id="bs" style="font-size:14px"></p><button class="tb" data-r="bb"></button></div>`;
+el.querySelectorAll('[data-b]').forEach((b,i)=>b.className=bb.o[i]?'c'+bb.o[i]:'');
+$('#bm').textContent=bb.msg;$('#bt').style.width=bb.t/BBT*100+'%';$('#bs').textContent='You hold '+bb.o.filter(v=>v==1).length+' of 9 \u00b7 Score '+bb.sc+' \u00b7 Best '+best('bb');el.querySelector('[data-r]').textContent=bb.run?'Restart':'Start round'}
+function bbEnd(m){bb.run=0;clearInterval(bb.iv);bb.msg=m;best('bb',bb.sc);bbDraw()}
+function bbStart(){bbNew();bb.run=1;const s=bb,ix=f=>s.o.map((x,i)=>f(x)?i:-1).filter(i=>i>=0);s.msg='Go! Claim blocks faster than the rival.';
+s.iv=setInterval(()=>{if(bb!==s){clearInterval(s.iv);return}s.t-=.4;const mine=ix(x=>x==1);s.sc+=mine.length;
+for(let j=0;j<(s.t<10?2:1);j++){const a=ix(x=>x!=2),m=ix(x=>x==1),pool=m.length&&Math.random()<.7?m:a;if(pool.length)s.o[pool[Math.random()*pool.length|0]]=2}
+if(s.t<=0)return bbEnd('Time! You held '+ix(x=>x==1).length+' blocks. Score '+s.sc+'.');bbDraw()},400)}
+/* Spot the prop (Prop Hunt) */
+const PH=[38,190,150,330,265];
+function phRound(){const n=Math.min(7,3+(ph.r/3|0));ph.n=n;ph.h=PH[ph.r%5];ph.l=56;ph.d=Math.max(3,14-ph.r)*(Math.random()<.5?-1:1);ph.p=Math.random()*n*n|0}
+const phNew=()=>{ph={r:0,t:30,run:0,msg:'Find the block with a slightly different shade. A find adds 2 seconds, a miss costs 3.'};phRound();return ph};
+function phUpd(){if(!$('#pt'))return;$('#pt').style.width=ph.t/30*100+'%';$('#ps').textContent='Props found '+ph.r+' \u00b7 Best '+best('ph');$('#pm').textContent=ph.msg}
+function phDraw(){const el=$('#gm');if(!el||!ph)return;const k=ph.r+'|'+ph.run;
+if(el.dataset.k!==k||!$('#pt')){el.dataset.k=k;const n=ph.n,w=Math.max(34,Math.round(270/n));
+el.innerHTML=`<div class="tg phg" style="grid-template-columns:repeat(${n},${w}px)">${[...Array(n*n)].map((_,i)=>`<button data-h="${i}" aria-label="Block ${i+1}" style="background:hsl(${ph.h} 85% ${ph.l+(i===ph.p?ph.d:0)}%)${!ph.run&&ph.t<=0&&i===ph.p?';outline:3px solid #fff':''}"></button>`).join('')}</div><div><h3 style="font:700 20px var(--d)">Spot the prop</h3><p class="sub" id="pm" style="margin:6px 0 10px"></p><div class="tm"><i id="pt"></i></div><p class="note" id="ps" style="font-size:14px"></p><button class="tb" data-r="ph">New game</button></div>`}
+phUpd()}
+function phStart(){ph.run=1;const s=ph;s.iv=setInterval(()=>{if(ph!==s){clearInterval(s.iv);return}s.t-=.2;if(s.t<=0){s.t=0;s.run=0;clearInterval(s.iv);best('ph',s.r);s.msg='Time! You spotted '+s.r+' props. The last one is outlined.';beep(180,400,'sawtooth');phDraw()}else phUpd()},200)}
 document.addEventListener('click',e=>{const t=e.target,r=t.closest('[data-r]');
-if(r){r.dataset.r==='bb'?bbNew():phNew();r.dataset.r==='bb'?bbDraw():phDraw();return}
-const b=t.closest('[data-b]');if(b){const s=bb,i=+b.dataset.b;if(s.busy||s.o[i]||s.o.every(v=>v))return;s.o[i]=1;bbEnd(s);
-if(!s.o.every(v=>v)){s.busy=1;s.msg='Rivals are moving...';setTimeout(()=>{const f=s.o.map((v,j)=>v?-1:j).filter(j=>j>=0);s.o[f[Math.random()*f.length|0]]=2;s.busy=0;s.msg='Your turn. Claim another block.';bbEnd(s);bbDraw()},450)}bbDraw();return}
-const h=t.closest('[data-h]');if(h){const i=+h.dataset.h;if(ph.d||ph.m.includes(i))return;
-if(i===ph.p){ph.d=1;ph.msg=`Found it in ${ph.m.length+1} guess${ph.m.length?'es':''}! Hunters win.`}else{ph.m.push(i);ph.l--;if(ph.l<1){ph.d=1;ph.msg='The prop survived! Props win.'}else ph.msg=`Nothing there. ${ph.l} guess${ph.l>1?'es':''} left.`}phDraw()}});
+if(r){if(r.dataset.r==='bb'){bbStart();bbDraw()}else{phNew();phDraw()}return}
+const b=t.closest('[data-b]');if(b){if(!bb.run)bbStart();bb.o[+b.dataset.b]=1;beep(440+bb.o.filter(v=>v==1).length*40,70);if(bb.o.every(v=>v==1)){bb.sc+=50;beep(880,300);return bbEnd('Box captured! +50 bonus. Score '+bb.sc+'.')}bbDraw();return}
+const h=t.closest('[data-h]');if(h){if(ph.t<=0)return;if(!ph.run)phStart();
+if(+h.dataset.h===ph.p){ph.r++;ph.t=Math.min(30,ph.t+2);ph.msg='Nice! Next round.';beep(600+ph.r*30,90);phRound();phDraw()}
+else{ph.t-=3;ph.msg='Wrong block. -3s';beep(160,160,'square');h.classList.add('shk');phUpd();setTimeout(()=>h.classList.remove('shk'),300)}}});
 function modePage(){const i=MI[MK],pk=D.leaderboards.parkour[0],p=MK==='parkour';
 $('#mode').innerHTML=`<div class="w"><h2>${i[0]}</h2><p class="sub">${i[1]}</p><div class="live" style="margin:0 0 28px"><div><strong>${p?(pk?ms(pk.ms):'-'):(D.byMode[MK]||0)}</strong><small>${p?'server record':'playing now'}</small></div><div><strong>${(D.leaderboards[MK]||[]).length}</strong><small>ranked players</small></div></div>${MK==='battlebox'||MK==='prophunt'?'<div class="card gm" id="gm"></div>':''}<div id="mb"></div><div class="note">Click a player to open their profile.</div></div>`;board($('#mb'),MK,0,50);MK==='battlebox'?(bb||bbNew(),bbDraw()):(ph||phNew(),phDraw())}
 function plist(){const v=$('#q2').value.trim().toLowerCase(),r=Object.values(D.players).filter(p=>p.name.toLowerCase().includes(v)).sort((a,b)=>b.level-a.level).slice(0,60);
@@ -256,26 +277,41 @@ if(!run){run=1;requestAnimationFrame(tick)}});
 
 addEventListener('pointermove',e=>{const r=document.documentElement.style;r.setProperty('--mx',e.clientX+'px');r.setProperty('--my',e.clientY+'px')});
 /* ---- parkour runner ---- */
-(()=>{const c=$('#pkc'),k=c.getContext('2d');let y=0,v=0,o=[],sc=0,on=0,sp=5,f=0,best=0;
-const msg=(a,b)=>{k.fillStyle='#fff8e7';k.textAlign='center';k.font='800 22px Bricolage Grotesque,sans-serif';k.fillText(a,320,78);k.font='15px DM Sans,sans-serif';k.fillText(b,320,104)};
-function draw(){k.clearRect(0,0,640,180);k.fillStyle='#161d30';k.fillRect(0,150,640,30);k.shadowColor='#8fe3ff';k.shadowBlur=16;k.fillStyle='#8fe3ff';o.forEach(b=>k.fillRect(b.x,150-b.h,b.w,b.h));
-k.shadowColor='#ffc45e';k.shadowBlur=24;k.fillStyle='#ffd27a';k.fillRect(60,124-y,26,26);k.shadowBlur=0;k.fillStyle='#eef2ff';k.textAlign='left';k.font='14px DM Sans,sans-serif';k.fillText('Score '+sc+'   Best '+best,12,22)}
-function end(){on=0;best=Math.max(best,sc);draw();msg('Crashed at '+sc,'Click or press Space to run again')}
-function loop(){if(!on)return;f++;if(f%Math.max(40,90-(sc/4|0))===0)o.push({x:640,w:16+Math.random()*24,h:18+Math.random()*28});
-v-=.7;y=Math.max(0,y+v);if(!y&&v<0)v=0;sp=5+sc/80;o.forEach(b=>b.x-=sp);if(o[0]&&o[0].x+o[0].w<0){o.shift();sc++}
-if(o.some(b=>b.x<86&&b.x+b.w>60&&y<b.h-2))return end();draw();requestAnimationFrame(loop)}
-const jump=()=>{if(!on){on=1;y=0;v=0;o=[];sc=0;f=0;loop()}else if(!y)v=11};
-c.onpointerdown=jump;addEventListener('keydown',e=>{const r=c.getBoundingClientRect();if(e.code==='Space'&&V==='home'&&!/INPUT|BUTTON/.test(document.activeElement.tagName)&&r.top<innerHeight&&r.bottom>0){e.preventDefault();jump()}});
-draw();msg('Hub Parkour','Click or press Space to jump')})();
+(()=>{const c=$('#pkc'),k=c.getContext('2d');let y,v,o,co,pt,sc,lm,on=0,f,sp,hold=0,bk=best('pk');
+const st=[...Array(40)].map(()=>({x:Math.random()*640,y:Math.random()*130,z:Math.random()*1.5+.3}));
+const reset=()=>{y=0;v=0;o=[];co=[];pt=[];sc=0;lm=0;f=0;sp=5.5};reset();
+const tx=(a,b)=>{k.fillStyle='#eef2ff';k.textAlign='center';k.font='800 24px Syne,sans-serif';k.fillText(a,320,76);k.font='15px Manrope,sans-serif';k.fillText(b,320,104)};
+function draw(){k.clearRect(0,0,640,180);st.forEach(q=>{if(on)q.x=(q.x-q.z*sp*.25+640)%640;k.fillStyle='rgba(238,242,255,'+q.z*.25+')';k.fillRect(q.x,q.y,q.z+.5,q.z+.5)});
+k.fillStyle='#141b2e';k.fillRect(0,150,640,30);k.shadowColor='#8fe3ff';k.shadowBlur=16;k.fillStyle='#8fe3ff';o.forEach(b=>k.fillRect(b.x,150-b.h,b.w,b.h));
+k.shadowColor='#ffd27a';k.fillStyle='#ffd27a';co.forEach(q=>{k.beginPath();k.arc(q.x,q.y,7,0,7);k.fill()});k.shadowBlur=0;
+pt.forEach(q=>{k.globalAlpha=q.a;k.fillStyle='#ffc45e';k.fillRect(q.x,q.y,4,4)});k.globalAlpha=1;
+k.shadowColor='#ffc45e';k.shadowBlur=24;k.fillStyle='#ffe3a3';k.fillRect(60,124-y,26,26);k.shadowBlur=0;
+k.fillStyle='#eef2ff';k.textAlign='left';k.font='14px Manrope,sans-serif';k.fillText('Score '+(sc+lm*2)+'   Lumens '+lm+'   Best '+bk,12,22)}
+const idle=()=>{draw();tx('Hub Parkour','Click or press Space to jump. Hold to jump higher. Catch the lumens.')};
+function end(){on=0;bk=best('pk',sc+lm*2);beep(150,300,'sawtooth');draw();tx('Crashed! Score '+(sc+lm*2),'Click or press Space to run again')}
+function loop(){if(!on)return;f++;
+if(f%Math.max(38,85-(sc/5|0))===0){const h=18+Math.random()*30;o.push({x:660,w:16+Math.random()*22,h});if(Math.random()<.6)co.push({x:690+Math.random()*60,y:150-h-30-Math.random()*50})}
+v-=(hold&&v>0)?.5:.85;y=Math.max(0,y+v);if(!y&&v<0)v=0;sp=5.5+sc/70;o.forEach(b=>b.x-=sp);co.forEach(q=>q.x-=sp);
+if(o[0]&&o[0].x+o[0].w<0){o.shift();sc++}
+co=co.filter(q=>{if(q.x<-10)return 0;if(Math.abs(q.x-73)<20&&Math.abs(q.y-(137-y))<20){lm++;beep(880,80);return 0}return 1});
+if(f%2==0)pt.push({x:60,y:144-y+Math.random()*10,a:.7});pt.forEach(q=>{q.x-=sp*.7;q.a-=.035});pt=pt.filter(q=>q.a>0);
+if(o.some(b=>b.x<86&&b.x+b.w>60&&y<b.h-3))return end();draw();requestAnimationFrame(loop)}
+const jump=()=>{if(!on){reset();on=1;loop()}else if(!y){v=10;beep(520,70)}};
+c.onpointerdown=()=>{hold=1;jump()};addEventListener('pointerup',()=>hold=0);
+addEventListener('keydown',e=>{const r=c.getBoundingClientRect();if(e.code==='Space'&&!e.repeat&&V==='home'&&!/INPUT|BUTTON/.test(document.activeElement.tagName)&&r.top<innerHeight&&r.bottom>0){e.preventDefault();hold=1;jump()}});
+addEventListener('keyup',e=>{if(e.code==='Space')hold=0});
+idle();document.fonts.ready.then(()=>{if(!on)idle()})})();
 /* ---- reaction ---- */
-let rS='i',rT,rM;$('#rx').onclick=()=>{const e=$('#rx');
-if(rS==='i'){rS='w';e.className='rx w';e.textContent='Wait for green...';rM=setTimeout(()=>{rS='g';rT=performance.now();e.className='rx g';e.textContent='CLICK!'},1000+Math.random()*2500)}
-else if(rS==='w'){clearTimeout(rM);rS='i';e.className='rx';e.textContent='Too soon! Click to retry'}
-else{rS='i';const t=Math.round(performance.now()-rT);e.className='rx';e.textContent=t+' ms'+(t<250?' - fast!':'')+' Click to go again'}};
+let rS='i',rT,rM,rH=[];$('#rx').onclick=()=>{const e=$('#rx');
+if(rS==='i'){rS='w';e.className='rx w';e.textContent='Wait for green...';rM=setTimeout(()=>{rS='g';rT=performance.now();e.className='rx g';e.textContent='CLICK!';beep(700,120)},1000+Math.random()*2500)}
+else if(rS==='w'){clearTimeout(rM);rS='i';e.className='rx';e.textContent='Too soon! Click to retry';beep(150,200,'square')}
+else{rS='i';const t=Math.round(performance.now()-rT);rH.push(t);const a=Math.round(rH.reduce((x,y)=>x+y)/rH.length);e.className='rx';e.innerHTML=t+' ms<small>avg '+a+' ms &middot; best '+Math.min(...rH)+' ms &middot; '+rH.length+'/5</small>'+(rH.length>=5?'<small>Set done. Click for a new one</small>':'');if(rH.length>=5)rH=[]}};
 /* ---- memory ---- */
-let sq=[],pi=0,lk=1;const pads=[...document.querySelectorAll('.sp')],fl=(i,m=350)=>{pads[i].classList.add('lit');setTimeout(()=>pads[i].classList.remove('lit'),m)};
-const sm=t=>$('#sm').textContent=t;
-async function plays(){lk=1;pi=0;sq.push(Math.random()*4|0);sm('Watch... round '+sq.length);for(const i of sq){await new Promise(r=>setTimeout(r,600));fl(i)}lk=0;sm('Your turn!')}
-pads.forEach((b,i)=>b.onclick=()=>{if(lk)return;fl(i,200);if(i!==sq[pi]){sm('Missed! You reached round '+sq.length+'. Press Start.');sq=[];lk=1;return}if(++pi===sq.length)setTimeout(plays,700)});
-$('#sst').onclick=()=>{sq=[];plays()};
+let sq=[],pi=0,lk=1,pl=0;const pads=[...document.querySelectorAll('.sp')],TN=[262,330,392,523],sm=t=>$('#sm').textContent=t;
+const fl=(i,m=350)=>{pads[i].classList.add('lit');beep(TN[i],m);setTimeout(()=>pads[i].classList.remove('lit'),m)};
+async function plays(){pl=1;lk=1;pi=0;sq.push(Math.random()*4|0);sm('Watch... round '+sq.length);for(const i of sq){await new Promise(r=>setTimeout(r,Math.max(250,650-sq.length*25)));fl(i,300)}lk=0;pl=0;sm('Your turn! (keys 1-4 work too)')}
+pads.forEach((b,i)=>b.onclick=()=>{if(lk)return;fl(i,200);if(i!==sq[pi]){const n=sq.length-1;sm('Missed! You cleared '+n+' round'+(n==1?'':'s')+'. Best '+best('sm',n)+'. Press Start.');sq=[];lk=1;beep(150,300,'sawtooth');return}if(++pi===sq.length)setTimeout(plays,700)});
+$('#sst').onclick=()=>{if(pl)return;sq=[];plays()};
+addEventListener('keydown',e=>{if(V==='arcade'&&/^[1-4]$/.test(e.key))pads[+e.key-1].click()});
+$('#snd').onclick=e=>{SND=!SND;e.target.textContent='Sound: '+(SND?'on':'off')};
 </script></body></html>
