@@ -1,5 +1,354 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lumaris - Battle Box, Prop Hunt & Parkour</title>
+<meta name="description" content="Lumaris Minecraft server: leaderboards and player profiles for Battle Box, Prop Hunt and Hub Parkour.">
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#060813;--pn:#0e1325cc;--ln:#ffffff14;--c:#5ee7ff;--p:#b388ff;--t:#e9edfb;--m:#8d97b8;--g:#5dffa0;--r:#ff7b93;--y:#ffd479;--d:'Unbounded',sans-serif;--b:'Figtree',sans-serif}
+*{box-sizing:border-box;margin:0}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--t);font:400 16px/1.6 var(--b);overflow-x:hidden}
+a{color:inherit;text-decoration:none}button,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--c);outline-offset:3px;border-radius:8px}
+#bg{position:fixed;inset:0;z-index:-1;width:100%;height:100%}
+.w{max-width:1140px;margin:0 auto;padding:0 22px}
+nav{position:fixed;inset:0 0 auto;z-index:20;backdrop-filter:blur(16px);background:#060813aa;border-bottom:1px solid var(--ln)}
+nav .w{display:flex;align-items:center;gap:26px;height:62px}
+.logo{font:700 17px var(--d);letter-spacing:.08em;background:linear-gradient(90deg,var(--c),var(--p));-webkit-background-clip:text;background-clip:text;color:transparent}
+nav a.l{color:var(--m);font-weight:500}nav a.l:hover{color:var(--t)}
+.sw{margin-left:auto;position:relative;width:min(260px,46vw)}
+.sw input{width:100%;background:#ffffff0d;border:1px solid var(--ln);border-radius:12px;padding:9px 14px}
+.sug{position:absolute;top:110%;left:0;right:0;background:#0e1325;border:1px solid var(--ln);border-radius:12px;overflow:hidden;display:none}
+.sug.on{display:block}.sug button{display:flex;gap:10px;align-items:center;width:100%;padding:8px 12px;background:none;border:0;cursor:pointer;text-align:left}
+.sug button:hover{background:#ffffff12}.sug img{width:24px;height:24px;border-radius:6px}
+.hero{min-height:100svh;display:grid;align-items:center;padding:100px 0 50px}
+.hero .w{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+h1{font:700 clamp(38px,6.2vw,74px)/1.03 var(--d);letter-spacing:-.025em}
+.gr{background:linear-gradient(90deg,var(--c),var(--p),var(--c));background-size:200%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 6s linear infinite}
+@keyframes sh{to{background-position:200%}}
+.lead{margin:20px 0 28px;color:var(--m);font-size:18px;max-width:46ch}
+.ip{display:inline-flex;align-items:center;gap:14px;background:var(--pn);border:1px solid var(--ln);border-radius:14px;padding:8px 8px 8px 20px;cursor:pointer;transition:.2s}
+.ip:hover{border-color:var(--c);box-shadow:0 0 30px #5ee7ff30}.ip code{font:500 17px var(--b);color:var(--c)}
+.ip b{background:linear-gradient(90deg,var(--c),var(--p));color:#06101a;border-radius:9px;padding:9px 16px;font-size:14px}
+.live{display:flex;gap:30px;margin-top:32px;flex-wrap:wrap}.live strong{display:block;font:700 30px var(--d)}.live small{color:var(--m);font-size:13px}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--g);margin-right:7px;box-shadow:0 0 12px var(--g);animation:pl 2s infinite}@keyframes pl{50%{opacity:.3}}
+.card{background:var(--pn);border:1px solid var(--ln);border-radius:18px;backdrop-filter:blur(10px)}
+.feed{padding:20px}.feed h3{font:700 13px var(--d);color:var(--m);letter-spacing:.1em;margin-bottom:12px}
+.fr{display:flex;align-items:center;gap:12px;padding:9px 8px;border-radius:12px;cursor:pointer;transition:.15s}.fr:hover{background:#ffffff0f;transform:translateX(4px)}
+.fr img{width:34px;height:34px;border-radius:8px}.fr span{margin-left:auto;color:var(--c);font-weight:700}
+section{padding:90px 0}h2{font:700 clamp(26px,3.6vw,40px)/1.15 var(--d);margin-bottom:10px}.sub{color:var(--m);max-width:56ch;margin-bottom:40px}
+.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.mc{padding:28px;transition:transform .15s,border-color .2s;transform-style:preserve-3d}.mc:hover{border-color:var(--p)}
+.mc svg{width:64px;height:64px;margin-bottom:14px}.mc h3{font:700 20px var(--d);margin-bottom:6px}.mc p{color:var(--m);font-size:15px}
+.mc .n{margin-top:16px;font:700 13px var(--d);color:var(--c)}
+.tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+.tb{background:#ffffff0b;border:1px solid var(--ln);border-radius:10px;padding:9px 18px;cursor:pointer;color:var(--m);transition:.15s}
+.tb:hover{color:var(--t)}.tb[aria-selected=true]{color:#06101a;background:linear-gradient(90deg,var(--c),var(--p));border-color:transparent;font-weight:700}
+.pod{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:14px;align-items:end;margin-bottom:18px}
+.pd{padding:18px;text-align:center;cursor:pointer;transition:.2s}.pd:hover{transform:translateY(-6px);border-color:var(--c)}
+.pd img{width:64px;height:64px;border-radius:14px;margin-bottom:8px}.pd .k{font:700 12px var(--d);color:var(--y)}.pd strong{display:block}.pd small{color:var(--c);font-weight:700}
+.pd.f{padding-top:28px;border-color:#ffd47966;box-shadow:0 0 40px #ffd47922}
+table{width:100%;border-collapse:collapse}th{font-weight:500;color:var(--m);font-size:13px;text-align:left;padding:14px 18px;border-bottom:1px solid var(--ln)}
+td{padding:11px 18px;border-bottom:1px solid #ffffff0a}tr:last-child td{border:0}tbody tr{cursor:pointer;transition:.15s}tbody tr:hover{background:#ffffff0c}
+.rk{width:50px;font:700 14px var(--d);color:var(--m)}.pl{display:flex;align-items:center;gap:12px;font-weight:500}.pl img{width:30px;height:30px;border-radius:7px}
+.nm{text-align:right;font-variant-numeric:tabular-nums}.bar{height:4px;border-radius:2px;background:#ffffff14;margin:5px 0 0 auto;width:80px}.bar i{display:block;height:100%;border-radius:2px;background:linear-gradient(90deg,var(--c),var(--p))}
+.note{font-size:12px;color:var(--m);margin-top:12px}.note.warn{color:var(--r)}
+.view{display:none}body[data-v=home] #home,body[data-v=mode] #mode,body[data-v=players] #players,body[data-v=prof] #prof{display:block}
+#mode,#players,#prof{padding:100px 0 60px;min-height:100vh}
+body{background:radial-gradient(ellipse at 30% 0,#b388ff22,transparent 55%) fixed,var(--bg)}
+nav a.l.on{color:var(--t)}nav a{white-space:nowrap}.mc{cursor:pointer}
+.big{width:100%;background:#ffffff0d;border:1px solid var(--ln);border-radius:14px;padding:14px 18px;margin-bottom:22px;font-size:18px}
+.gm{display:flex;gap:30px;align-items:center;padding:24px;margin-bottom:28px;flex-wrap:wrap}
+.tg{display:grid;gap:10px;flex:none}.bbg{grid-template-columns:repeat(3,72px)}.phg{grid-template-columns:repeat(4,62px)}
+.tg button{aspect-ratio:1;border-radius:14px;background:#1e2740;border:1px solid var(--ln);cursor:pointer;transition:.2s}
+.bbg button:hover{background:#5ee7ff33;border-color:var(--c);box-shadow:0 0 26px #5ee7ff77;transform:scale(1.07)}
+.phg button:hover{background:#b388ff33;border-color:var(--p);box-shadow:0 0 26px #b388ff77;transform:scale(1.07)}
+.tg .c1{background:var(--c);border-color:var(--c);box-shadow:0 0 30px #5ee7ffaa}.tg .c2{background:var(--p);border-color:var(--p);box-shadow:0 0 30px #b388ffaa}
+.tg .miss{opacity:.25;background:#ff7b9333;pointer-events:none}
+#g9 rect{transition:.2s}#g9 rect:hover{fill:#5ee7ff;filter:drop-shadow(0 0 6px #5ee7ff)}.mc svg rect[fill="#b388ff"]{transition:.2s}.mc svg rect[fill="#b388ff"]:hover{filter:drop-shadow(0 0 10px #b388ff)}
+.pc{display:flex;gap:12px;align-items:center;padding:14px;cursor:pointer;transition:.15s}.pc:hover{border-color:var(--c);transform:translateY(-3px)}.pc img{width:40px;height:40px;border-radius:9px}
+.back{display:inline-block;margin-bottom:18px;color:var(--m);cursor:pointer}.back:hover{color:var(--c)}
+.ph{display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center;padding:26px;position:relative;overflow:hidden}
+.ph:before{content:"";position:absolute;inset:-40% 40% auto -10%;height:220px;background:radial-gradient(#b388ff33,transparent 70%)}
+.sk{width:150px;height:220px;object-fit:contain;filter:drop-shadow(0 12px 24px #0008);transition:transform .2s;position:relative}
+.ph h2{margin:0;font-size:clamp(24px,3.4vw,38px);position:relative}.badges{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 14px;position:relative}
+.bd{font-size:12px;font-weight:700;border-radius:99px;padding:3px 11px;border:1px solid var(--ln);background:#ffffff0d}.bd.on{color:var(--g);border-color:#5dffa055}.bd.vip{color:var(--y);border-color:#ffd47966}
+.xp{height:10px;border-radius:6px;background:#ffffff14;overflow:hidden;position:relative;max-width:420px}.xp i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--c),var(--p));transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
+.xl{font-size:13px;color:var(--m);margin-top:6px;position:relative}
+.ring{position:relative;width:130px;height:130px;flex:none}.ring svg{transform:rotate(-90deg)}.ring b{position:absolute;inset:0;display:grid;place-items:center;font:700 34px var(--d)}.ring small{position:absolute;bottom:26px;left:0;right:0;text-align:center;color:var(--m);font-size:11px}
+.cur{display:flex;gap:18px;margin-top:10px;position:relative}.cur span{font-weight:700}.cur small{color:var(--m);font-weight:400}
+.pt{margin:22px 0 16px}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px}
+.st{padding:18px;transition:.2s}.st:hover{transform:translateY(-3px);border-color:var(--c)}.st small{color:var(--m);font-size:13px}.st strong{display:block;font:700 26px var(--d);margin:2px 0}.st em{font-style:normal;font-size:12px;color:var(--m)}
+.two{display:grid;grid-template-columns:260px 1fr;gap:14px;margin-top:14px}.dn{padding:22px;text-align:center}.dn svg{width:170px;height:170px;transform:rotate(-90deg)}.dn div{margin-top:8px;font-size:13px;color:var(--m)}
+.ml{padding:8px}.mr{display:flex;align-items:center;gap:14px;padding:10px 14px;border-radius:12px}.mr:hover{background:#ffffff0a}
+.pill{font:700 12px var(--d);border-radius:8px;padding:4px 10px;min-width:54px;text-align:center}.pill.w{background:#5dffa01f;color:var(--g)}.pill.l{background:#ff7b931f;color:var(--r)}
+.mr span{color:var(--m);font-size:13px}.mr .e{margin-left:auto;font-weight:700}.fm{display:flex;gap:5px;margin-top:14px}.fm i{width:14px;height:14px;border-radius:4px}
+.cos{padding:16px;display:flex;gap:12px;align-items:center;opacity:.35;transition:.2s}.cos.own{opacity:1;border-color:#b388ff66}.cos.eq{box-shadow:0 0 28px #b388ff40}.cos b{display:block}.cos small{color:var(--m)}.cos .ic{font-size:26px}
+.empty{padding:40px;text-align:center;color:var(--m)}
+footer{padding:34px 0;color:var(--m);font-size:14px;text-align:center;border-top:1px solid var(--ln)}
+.rv{opacity:0;transform:translateY(20px);transition:.7s}.rv.in{opacity:1;transform:none}
+@media(max-width:860px){nav .w{gap:16px;overflow-x:auto}.sw{display:none}.hero .w,.modes,.two{grid-template-columns:1fr}.ph{grid-template-columns:1fr;text-align:center}.ph .sk{margin:auto}.badges,.cur{justify-content:center}.xp{margin:auto}.ring{margin:auto}.pod{grid-template-columns:1fr}.pd.f{order:-1!important}th:nth-child(n+5),td:nth-child(n+5){display:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+:root{--bg:#06080f;--pn:#0f1320cc;--ln:#ffffff14;--c:#c79bff;--p:#ffe27a;--t:#eef2ff;--m:#8b93ad;--g:#7dffc4;--r:#ff8a9a;--y:#ffd27a;--d:'Pixelify Sans',sans-serif;--b:'Manrope',sans-serif;--mx:50vw;--my:25vh}
+body{background:var(--bg)}
+body:before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(520px circle at var(--mx) var(--my),#ffe27a22,transparent 65%),radial-gradient(900px 500px at 85% -10%,#c79bff14,transparent 60%),radial-gradient(700px 500px at 0 100%,#ffe27a0d,transparent 60%)}
+h1,h2{font-weight:600;letter-spacing:-.02em}h1{font-size:clamp(42px,6.6vw,84px)}
+.gr{background:linear-gradient(90deg,#ffe9b8,#ffe27a,#ffe9b8);background-size:200%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;filter:drop-shadow(0 0 22px #ffe27a66)}
+.card{background:linear-gradient(#ffffff09,#ffffff02),var(--pn);border-radius:22px;box-shadow:0 14px 50px #0007;transition:border-color .25s,box-shadow .25s,transform .15s}.card:hover{border-color:#ffe27a44;box-shadow:0 14px 50px #0007,0 0 40px #ffe27a14}
+.logo{font:600 19px var(--d);letter-spacing:.16em;background:none;-webkit-text-fill-color:var(--t);color:var(--t);display:flex;align-items:center;gap:10px}
+.logo:before{content:"";width:11px;height:11px;border-radius:3px;background:var(--p);box-shadow:0 0 16px var(--p),0 0 34px #ffe27a88}
+nav a.l.on{color:var(--p);text-shadow:0 0 14px #ffe27a88}
+.tb[aria-selected=true]{background:var(--p);color:#1a1205;box-shadow:0 0 26px #ffe27a55}
+.ip code{color:var(--p)}.ip b{background:var(--p);color:#1a1205}.ip:hover{border-color:var(--p);box-shadow:0 0 36px #ffe27a40}
+.dot{background:var(--p);box-shadow:0 0 12px var(--p)}
+.modes .mc:nth-child(1):hover{border-color:#c79bff88;box-shadow:0 0 50px #c79bff30}.modes .mc:nth-child(2):hover{border-color:#ffe27a88;box-shadow:0 0 50px #ffe27a30}.modes .mc:nth-child(3):hover{border-color:#7dffc488;box-shadow:0 0 50px #7dffc430}
+.mc svg rect[fill="#b388ff"]{fill:var(--p)}.mc svg [stroke="#b388ff"]{stroke:var(--p)}.mc svg [stroke="#5ee7ff"]{stroke:var(--g)}.mc svg rect[fill="#5ee7ff"]{fill:var(--c)}.mc svg rect[fill="#b388ff"]:hover{filter:drop-shadow(0 0 10px #ffe27a)}#g9 rect:hover{fill:#fff;filter:drop-shadow(0 0 8px #c79bff)}
+.mc .n{color:var(--p)}.st strong,.live strong{font-weight:600}
+
+.ag{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}.ag .card{padding:24px}
+.rx{display:grid;place-items:center;width:100%;height:200px;border-radius:16px;border:1px solid var(--ln);background:#0b0f1a;color:var(--t);font:600 22px var(--d);text-align:center;cursor:pointer;transition:.2s}.rx:hover{border-color:#c79bff66}.rx.w{background:#2a1219;color:var(--r)}.rx.g{background:#0c2b22;color:var(--g);box-shadow:0 0 60px #7dffc455}
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:260px;margin:14px 0}.sp{aspect-ratio:1;border-radius:18px;border:1px solid #ffffff30;cursor:pointer;opacity:.3;transition:.12s}.sp.lit{opacity:1;transform:scale(1.05);box-shadow:0 0 44px currentColor}
+#pkc{width:100%;height:auto;display:block;border-radius:14px;background:#080b14;cursor:pointer;touch-action:manipulation}.pk{padding:12px;margin-bottom:22px}
+.tg button:hover{transform:scale(1.07)}.phg button:hover{background:#ffe27a2a;border-color:var(--p);box-shadow:0 0 26px #ffe27a77}.tg .c1{background:var(--c);border-color:var(--c);box-shadow:0 0 30px #c79bffaa}.tg .c2{background:var(--p);border-color:var(--p);box-shadow:0 0 30px #ffe27aaa}
+.logo{letter-spacing:.1em}h1,h2,h3{font-weight:700;letter-spacing:-.015em}h1{font-weight:800;font-size:clamp(36px,5.6vw,72px)}.st strong,.live strong,.mc h3{font-weight:700}
+.tm{height:8px;border-radius:5px;background:#ffffff14;overflow:hidden;margin:4px 0 10px;max-width:260px}.tm i{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--c),var(--p));transition:width .25s linear}
+.rx small{display:block;font:500 14px var(--b);margin-top:8px;color:var(--m)}.phg button:hover{filter:brightness(1.15)}.shk{animation:shk .28s}@keyframes shk{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+#phc{max-width:100%;height:auto;border-radius:16px;border:1px solid var(--ln);touch-action:none;cursor:crosshair;flex:none}
+:root{--bg:#07040f;--pn:#1a1430;--c:#c79bff;--p:#ffe27a;--t:#f3eeff;--m:#9b90c2;--g:#6dffb5;--r:#ff6b8a;--y:#ffe27a;--d:'Pixelify Sans',sans-serif}
+*{border-radius:0!important}
+body{background:#07040f}
+body:before,body:after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none}
+body:before{background:radial-gradient(420px circle at var(--mx) var(--my),#ffe27a1c,transparent 65%),radial-gradient(ellipse at 15% 0,#3b1a7a66,transparent 55%),radial-gradient(ellipse at 95% 65%,#1d3a7a40,transparent 55%),radial-gradient(1.5px 1.5px at 20px 30px,#fff 98%,transparent),radial-gradient(1.5px 1.5px at 140px 90px,#ffe27a 98%,transparent),radial-gradient(1.5px 1.5px at 90px 160px,#c79bff 98%,transparent);background-size:auto,auto,auto,230px 210px,230px 210px,230px 210px}
+body:after{background:radial-gradient(2px 2px at 60px 120px,#fff 98%,transparent),radial-gradient(2px 2px at 180px 20px,#fff 98%,transparent),radial-gradient(2px 2px at 30px 190px,#ffe27a 98%,transparent);background-size:250px 230px;animation:tw 2.4s steps(2) infinite}@keyframes tw{50%{opacity:.2}}
+h1,h2,h3{font-family:var(--d);font-weight:700;letter-spacing:0}h1{font-size:clamp(34px,5.4vw,66px);line-height:1.1;text-shadow:4px 4px 0 #000}h2{text-shadow:3px 3px 0 #000}
+.gr{background:none!important;-webkit-text-fill-color:var(--p);color:var(--p);filter:none;animation:none;text-shadow:4px 4px 0 #6a2fc4}
+.card{background:var(--pn);border:4px solid #07040f;box-shadow:inset 3px 3px 0 #ffffff1c,inset -3px -3px 0 #0006,6px 6px 0 #0008;backdrop-filter:none}
+.card:hover{box-shadow:inset 3px 3px 0 #ffffff2a,inset -3px -3px 0 #0006,6px 6px 0 #0008,0 0 0 3px #ffe27a}
+nav{background:#120b26;border-bottom:4px solid #07040f;backdrop-filter:none;box-shadow:0 4px 0 #ffffff12}
+nav a.l{font-family:var(--d);font-weight:500;padding:6px 12px}nav a.l.on{background:#07040f;text-shadow:none}
+.logo{font:700 21px var(--d);letter-spacing:.08em}.logo:before{box-shadow:0 0 18px #ffe27a}
+.tb{border:3px solid #07040f;background:#2a2150;color:var(--t);font-family:var(--d);font-weight:500;box-shadow:inset 2px 2px 0 #ffffff22,inset -2px -2px 0 #0005}.tb:hover{transform:none;filter:brightness(1.25)}.tb[aria-selected=true]{background:var(--p);color:#1a1205;box-shadow:inset 2px 2px 0 #fff9,inset -2px -2px 0 #0004}
+.ip{border:4px solid #07040f;background:var(--pn);box-shadow:inset 3px 3px 0 #ffffff1c,inset -3px -3px 0 #0006,6px 6px 0 #0008}.ip:hover{transform:none;box-shadow:inset 3px 3px 0 #ffffff2a,inset -3px -3px 0 #0006,6px 6px 0 #0008,0 0 0 3px #ffe27a}.ip b{font-family:var(--d)}
+.sw input,.big{border:3px solid #07040f;background:#120b26;color:var(--t)}
+.ns{width:72px;height:72px;margin-bottom:12px;display:block;filter:drop-shadow(0 0 14px #ffe27a);animation:fl 3s steps(6) infinite}@keyframes fl{50%{transform:translateY(-8px)}}
+#pkc,#phc{border:3px solid #07040f;background:#05030c}
+.tg button{border:3px solid #07040f;box-shadow:inset 3px 3px 0 #ffffff22,inset -3px -3px 0 #0005}
+.rx{border:4px solid #07040f;font-family:var(--d)}
+.modes .mc:hover{border-color:#07040f}
+</style></head><body>
+<canvas id="bg"></canvas>
+<nav><div class="w"><a class="logo" href="#/">LUMARIS</a><a class="l" href="#/">Home</a><a class="l" href="#/battlebox">Battle Box</a><a class="l" href="#/prophunt">Prop Hunt</a><a class="l" href="#/players">Profiles</a>
+<div class="sw"><input id="q" type="search" placeholder="Search a player..." aria-label="Search a player" autocomplete="off"><div class="sug" id="sug"></div></div></div></nav>
+<main id="home" class="view">
+<header class="hero"><div class="w"><div>
+<svg class="ns" viewBox="0 0 9 9" shape-rendering="crispEdges" aria-hidden="true"><rect x="4" y="0" width="1" height="1" fill="#ffe27a"/><rect x="4" y="1" width="1" height="1" fill="#ffe27a"/><rect x="3" y="2" width="1" height="1" fill="#ffe27a"/><rect x="4" y="2" width="1" height="1" fill="#ffe27a"/><rect x="5" y="2" width="1" height="1" fill="#ffe27a"/><rect x="2" y="3" width="1" height="1" fill="#ffe27a"/><rect x="3" y="3" width="1" height="1" fill="#fff"/><rect x="4" y="3" width="1" height="1" fill="#fff"/><rect x="5" y="3" width="1" height="1" fill="#fff"/><rect x="6" y="3" width="1" height="1" fill="#ffe27a"/><rect x="0" y="4" width="1" height="1" fill="#ffe27a"/><rect x="1" y="4" width="1" height="1" fill="#ffe27a"/><rect x="2" y="4" width="1" height="1" fill="#ffe27a"/><rect x="3" y="4" width="1" height="1" fill="#fff"/><rect x="4" y="4" width="1" height="1" fill="#fff"/><rect x="5" y="4" width="1" height="1" fill="#fff"/><rect x="6" y="4" width="1" height="1" fill="#ffe27a"/><rect x="7" y="4" width="1" height="1" fill="#ffe27a"/><rect x="8" y="4" width="1" height="1" fill="#ffe27a"/><rect x="2" y="5" width="1" height="1" fill="#ffe27a"/><rect x="3" y="5" width="1" height="1" fill="#fff"/><rect x="4" y="5" width="1" height="1" fill="#fff"/><rect x="5" y="5" width="1" height="1" fill="#fff"/><rect x="6" y="5" width="1" height="1" fill="#ffe27a"/><rect x="3" y="6" width="1" height="1" fill="#ffe27a"/><rect x="4" y="6" width="1" height="1" fill="#ffe27a"/><rect x="5" y="6" width="1" height="1" fill="#ffe27a"/><rect x="4" y="7" width="1" height="1" fill="#ffe27a"/><rect x="4" y="8" width="1" height="1" fill="#ffe27a"/></svg><h1>Light up<span class="gr" style="display:block">the leaderboard.</span></h1>
+<p class="lead">Lumaris is a Minecraft server with ranked minigames, a hub parkour and player levels. Check the leaderboards and look up any profile.</p>
+<div class="ip" id="copy" role="button" tabindex="0" aria-label="Copy server address"><code id="ipT"></code><b>Copy IP</b></div>
+<div class="live" aria-live="polite"><div><strong id="on">0</strong><small><span class="dot"></span>online</small></div><div><strong id="hub">0</strong><small>in the hub</small></div><div><strong id="play">0</strong><small>in games</small></div><div><strong id="tot">0</strong><small>players</small></div></div><p class="note" style="margin-top:22px">Tip: click anywhere on the background.</p>
+</div><div class="card feed"><h3>TOP LEVELS</h3><div id="feed"></div></div></div></header>
+<section id="about" style="padding:10px 0"><div class="w"><div class="modes"><div class="card st rv"><small>Version</small><strong>Java 1.21.11</strong><em>Join and land in the hub</em></div><div class="card st rv"><small>Progression</small><strong>Levels &amp; Elo</strong><em>Rank up in every mode</em></div><div class="card st rv"><small>Extras</small><strong>Cosmetics</strong><em>Unlock with levels or VIP</em></div></div></div></section>
+<section id="modes"><div class="w"><h2 class="rv">Three ways to play</h2><p class="sub rv">Every mode has its own ranking and its own section on your profile. Click a card to open its page.</p>
+<div class="modes">
+<div class="card mc rv" data-go="#/battlebox" tabindex="0"><svg viewBox="0 0 64 64"><g id="g9"></g></svg><h3>Battle Box</h3><p>Two teams, nine center blocks. Pick a kit, capture them all and climb the Elo ladder.</p><div class="n"><span id="m-bb">0</span> playing</div></div>
+<div class="card mc rv" data-go="#/prophunt" tabindex="0"><svg viewBox="0 0 64 64"><rect x="10" y="10" width="44" height="44" rx="9" fill="none" stroke="#b388ff" stroke-width="3" stroke-dasharray="6 5"/><rect x="22" y="22" width="20" height="20" rx="4" fill="#b388ff"/></svg><h3>Prop Hunt</h3><p>Become the map. Hide, paint, pose and outlast the hunters for points and podiums.</p><div class="n"><span id="m-ph">0</span> playing</div></div>
+<div class="card mc rv" data-go="#/parkour" tabindex="0"><svg viewBox="0 0 64 64"><path d="M8 50h15V36h14V22h19" fill="none" stroke="#5ee7ff" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/></svg><h3>Hub Parkour</h3><p>A timed run in the hub. Your best time is saved and ranked server-wide.</p><div class="n">Best: <span id="m-pk">-</span></div></div>
+</div></div></section>
+<section id="leaderboards"><div class="w"><h2 class="rv">Top players</h2><p class="sub rv">Synced from the game database. Switch boards and click a player to open their profile.</p><div id="hb"></div><div class="note" id="note"></div></div></section>
+<section id="parkour"><div class="w"><h2 class="rv">Hub Parkour</h2><p class="sub rv">A timed run in the hub. Your best time is saved and ranked server-wide.</p><div class="card pk"><canvas id="pkc" width="640" height="180" aria-label="Parkour runner game"></canvas></div><div id="pkb"></div></div></section>
+<section id="join" style="text-align:center"><div class="w"><h2 class="rv">Ready when you are</h2><p class="sub rv" style="margin-inline:auto">Add the server in Minecraft Java 1.21.11 and you land in the hub.</p><div class="ip" id="copy2" role="button" tabindex="0"><code class="ipc"></code><b>Copy IP</b></div></div></section>
+</main>
+<div id="mode" class="view"></div>
+<div id="players" class="view"><div class="w"><h2>Player profiles</h2><p class="sub">Search any player, or pick one below to open their full stats.</p><input id="q2" class="big" type="search" placeholder="Type a name and press Enter" autocomplete="off" aria-label="Search players"><div class="grid" id="pg"></div></div></div>
+<div id="prof" class="view"><div class="w"><a class="back" href="#/players">&larr; Back to profiles</a><div id="pbody"></div></div></div>
+<footer><button class="tb" id="snd" style="margin-bottom:14px">Sound: on</button><br>Lumaris is not affiliated with Mojang or Microsoft.</footer>
+
+<script>
+/* ---- SETTINGS: point DATA_URL at the file the plugin pushes (see README) ---- */
+const SERVER_IP='lumaris.minecraft.co.com';
+const DATA_URL='https://raw.githubusercontent.com/OWNER/REPO/stats-data/lumaris.json';
+const REFRESH=60000;
+const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const head=(u,n)=>u?`https://mc-heads.net/avatar/${u}/64`:`https://minotar.net/helm/${encodeURIComponent(n)}/64.png`;
+const nf=n=>(n??0).toLocaleString(),ms=v=>(v/1000).toFixed(2)+'s';
+const ago=t=>{if(!t)return'never';const s=(Date.now()-t)/1000;return s<90?'just now':s<3600?Math.round(s/60)+'m ago':s<86400?Math.round(s/3600)+'h ago':Math.round(s/86400)+'d ago'};
+/* demo data (same shape as the plugin's JSON) so the page still looks alive before the feed is connected */
+const demo=(()=>{const N=['Nyx','Vale','Orion','Kestrel','Juniper','Halcyon','Mako','Sable','Ember','Quill'],P={},LB={battlebox:[],prophunt:[],parkour:[],level:[]};
+N.forEach((n,i)=>{const u='demo'+i,xp=90000-i*7000,lv=Math.floor(Math.log(1+xp*.1/100)/Math.log(1.1)),w=70-i*5,l=30+i*3;
+P[u]={name:n,uuid:u,level:lv,xp,xpInto:(i*37)%90,xpNeeded:100,sparks:800-i*50,lumens:60-i*4,vip:i<3,lastSeen:Date.now()-i*3e6,online:i<3,cosmetics:['firework_burst','frost_nova'].slice(0,1+i%2),equipped:'firework_burst',
+modes:{BATTLEBOX:{kills:900-i*60,deaths:500,wins:w,losses:l,elo:1900-i*63,rank:i+1,ranked:10,games:w+l},PROPHUNT:{kills:200,deaths:90,wins:40-i*3,losses:20,elo:1500-i*40,rank:i+1,ranked:10,games:60}},
+prophunt:{propGames:50,hunterGames:12,totalPoints:5200-i*300,bestPoints:180,firstPlaces:12-i,podiums:22-i,survived:30},parkour:{ms:41200+i*2380,rank:i+1,total:10,at:0},
+matches:{BATTLEBOX:[...Array(8)].map((_,j)=>({k:(i+j)%9,d:j%5,w:(i+j)%3>0,e:((i+j)%3>0?1:-1)*(8+j),t:Date.now()-j*9e6,p:0,pl:0,r:null}))}};
+LB.battlebox.push({name:n,uuid:u,elo:1900-i*63,wins:w,losses:l,kills:900-i*60,deaths:500,level:lv});LB.prophunt.push({name:n,uuid:u,wins:40-i*3,losses:20,kills:200,elo:1500,points:5200-i*300,firsts:12-i,level:lv});
+LB.parkour.push({name:n,uuid:u,ms:41200+i*2380,level:lv});LB.level.push({name:n,uuid:u,level:lv,xp});});
+return{demo:true,updated:Date.now(),online:14,hub:6,byMode:{battlebox:5,prophunt:3},totalPlayers:10,onlinePlayers:['Nyx','Vale','Orion'],leaderboards:LB,players:P,cosmeticCatalog:[{id:'firework_burst',name:'Firework Burst',desc:'A burst of fireworks.',unlock:'Level 10',level:10},{id:'frost_nova',name:'Frost Nova',desc:'Icy explosion.',unlock:'Level 20',level:20},{id:'golden_crown',name:'Golden Crown',desc:'VIP only.',unlock:'VIP',level:0}]}})();
+let D=demo,tab='level';
+const T={battlebox:{l:'Battle Box',c:[['Elo','elo'],['Wins','wins'],['Kills','kills'],['Level','level']]},prophunt:{l:'Prop Hunt',c:[['Wins','wins'],['Points','points'],['#1 finishes','firsts'],['Level','level']]},parkour:{l:'Parkour',c:[['Best time','ms'],['Level','level']]},level:{l:'Level',c:[['Level','level'],['Total XP','xp']]}};
+const fmt=(k,v)=>k==='ms'?ms(v):nf(v);
+function cu(el,to){const f=+el.textContent.replace(/,/g,'')||0,t0=performance.now();(function s(t){const k=Math.min(1,(t-t0)/800);el.textContent=nf(Math.round(f+(to-f)*k));if(k<1)requestAnimationFrame(s)})(t0)}
+function byName(n){n=n.toLowerCase();return Object.values(D.players).find(p=>p.name.toLowerCase()===n)}
+function uuidOf(r){return r.uuid}
+function live(){cu($('#on'),D.online);cu($('#hub'),D.hub);cu($('#play'),Math.max(0,D.online-D.hub));cu($('#tot'),D.totalPlayers||0);
+$('#m-bb').textContent=D.byMode.battlebox;$('#m-ph').textContent=D.byMode.prophunt;const pk=D.leaderboards.parkour[0];$('#m-pk').textContent=pk?ms(pk.ms):'-';
+$('#feed').innerHTML=(D.leaderboards.level.slice(0,5)).map((p,i)=>`<div class="fr" data-n="${esc(p.name)}"><b style="color:var(--m);width:16px">${i+1}</b><img src="${head(p.uuid,p.name)}" alt=""><b>${esc(p.name)}</b><span>Lv ${p.level}</span></div>`).join('')||'<div class="empty">No players yet</div>';
+const n=$('#note');n.className='note'+(D.demo?' warn':'');n.textContent=D.demo?'Showing sample data - the live feed is not connected yet (set DATA_URL).':'Synced '+ago(D.updated)}
+function board(root,k,tabs,n){const L=(D.leaderboards[k]||[]).slice(0,n),c=T[k].c,mx=Math.max(1,...L.map(p=>p[c[0][1]]||0));
+root.innerHTML=(tabs?`<div class="tabs" role="tablist">${Object.entries(T).filter(([a])=>a!=='parkour').map(([a,v])=>`<button class="tb" role="tab" data-t="${a}" aria-selected="${a===k}">${v.l}</button>`).join('')}</div>`:'')
++`<div class="pod">${L.slice(0,3).map((p,i)=>`<div class="card pd${i?'':' f'}" data-n="${esc(p.name)}" style="order:${[1,0,2][i]}"><img src="${head(p.uuid,p.name)}" alt=""><div class="k">#${i+1}</div><strong>${esc(p.name)}</strong><small>${fmt(c[0][1],p[c[0][1]])}</small></div>`).join('')}</div>`
++`<div class="card" style="overflow:hidden"><table><thead><tr><th>#</th><th>Player</th>${c.map(x=>`<th class="nm">${x[0]}</th>`).join('')}</tr></thead><tbody>${L.length?L.map((p,i)=>`<tr data-n="${esc(p.name)}"><td class="rk">${i+1}</td><td><div class="pl"><img src="${head(p.uuid,p.name)}" alt="" loading="lazy">${esc(p.name)}</div></td>`+c.map((x,j)=>`<td class="nm">${fmt(x[1],p[x[1]])}${j===0&&k!=='parkour'?`<div class="bar"><i style="width:${Math.round((p[x[1]]||0)/mx*100)}%"></i></div>`:''}</td>`).join('')+'</tr>').join(''):'<tr><td colspan=9 class="empty">No ranked players yet</td></tr>'}</tbody></table></div>`}
+/* ---- profile ---- */
+const ST=(l,v,s='')=>`<div class="card st"><small>${l}</small><strong>${v}</strong><em>${s}</em></div>`;
+function donut(w,l){const t=w+l||1,C=2*Math.PI*62,a=C*w/t;return`<svg viewBox="0 0 150 150"><circle cx="75" cy="75" r="62" fill="none" stroke="#ff7b9344" stroke-width="16"/><circle cx="75" cy="75" r="62" fill="none" stroke="#5dffa0" stroke-width="16" stroke-linecap="round" stroke-dasharray="${a} ${C}"/></svg>`}
+function matches(list){if(!list||!list.length)return'<div class="empty">No matches recorded yet</div>';
+return`<div class="ml">${list.map(m=>`<div class="mr"><span class="pill ${m.w?'w':'l'}">${m.w?'WIN':'LOSS'}</span><b>${m.k} kills</b><span>${m.d} deaths${m.r?' &middot; '+esc(m.r):''}${m.pl?' &middot; #'+m.pl:''}${m.p?' &middot; '+m.p+' pts':''}</span><span style="margin-left:auto">${ago(m.t)}</span>${m.e?`<b class="e" style="color:var(${m.e>0?'--g':'--r'})">${m.e>0?'+':''}${m.e}</b>`:''}</div>`).join('')}</div><div class="fm">${list.slice(0,10).map(m=>`<i style="background:var(${m.w?'--g':'--r'})"></i>`).join('')}</div>`}
+function modePanel(p,k){const m=p.modes[k];if(!m||!m.games)return'<div class="card empty">No games played in this mode yet.</div>';
+const kd=(m.kills/Math.max(1,m.deaths)).toFixed(2),wr=Math.round(m.wins*100/Math.max(1,m.games));
+let x=`<div class="grid">${ST('Elo',nf(m.elo),m.rank?`Rank #${m.rank} of ${m.ranked}`:'Unranked')}${ST('Wins',nf(m.wins),wr+'% win rate')}${ST('Losses',nf(m.losses))}${ST('Kills',nf(m.kills))}${ST('Deaths',nf(m.deaths))}${ST('K/D',kd)}</div>`;
+if(k==='PROPHUNT'&&p.prophunt){const h=p.prophunt;x+=`<div class="grid pt">${ST('Prop games',h.propGames,h.hunterGames+' as hunter')}${ST('Total points',nf(h.totalPoints),'Avg '+(h.propGames?Math.round(h.totalPoints/h.propGames):0))}${ST('Best game',h.bestPoints+' pts')}${ST('#1 finishes',h.firstPlaces,h.podiums+' podiums')}${ST('Survived',h.survived,(h.propGames?Math.round(h.survived*100/h.propGames):0)+'% of prop games')}</div>`}
+return x+`<div class="two"><div class="card dn">${donut(m.wins,m.losses)}<div>${m.wins}W &middot; ${m.losses}L</div></div><div class="card">${matches(p.matches[k])}</div></div>`}
+function profile(name){const p=byName(name);if(!p){$('#pbody').innerHTML=`<div class="card empty">No profile found for "${esc(name)}".</div>`;return}
+const pct=Math.min(100,Math.round(p.xpInto*100/Math.max(1,p.xpNeeded))),C=2*Math.PI*56,cat=D.cosmeticCatalog||[];
+$('#pbody').innerHTML=`<div class="card ph"><img class="sk" id="sk" src="https://mc-heads.net/body/${p.uuid}/right" onerror="this.src='https://minotar.net/armor/body/${encodeURIComponent(p.name)}/200.png'" alt="${esc(p.name)} skin">
+<div><h2>${esc(p.name)}</h2><div class="badges">${p.online?'<span class="bd on">&#9679; Online</span>':`<span class="bd">Seen ${ago(p.lastSeen)}</span>`}${p.vip?'<span class="bd vip">&#9733; VIP</span>':''}${p.modes.BATTLEBOX?.rank?`<span class="bd">Battle Box #${p.modes.BATTLEBOX.rank}</span>`:''}${p.parkour?.rank?`<span class="bd">Parkour #${p.parkour.rank}</span>`:''}</div>
+<div class="xp"><i id="xpb"></i></div><div class="xl">${nf(p.xpInto)} / ${nf(p.xpNeeded)} XP to level ${p.level+1} &middot; ${nf(p.xp)} total</div>
+<div class="cur"><span>${nf(p.sparks)} <small>Sparks</small></span><span>${nf(p.lumens)} <small>Lumens</small></span></div></div>
+<div class="ring"><svg width="130" height="130" viewBox="0 0 130 130"><circle cx="65" cy="65" r="56" fill="none" stroke="#ffffff14" stroke-width="9"/><circle id="rg" cx="65" cy="65" r="56" fill="none" stroke="url(#gg)" stroke-width="9" stroke-linecap="round" stroke-dasharray="0 ${C}"/><defs><linearGradient id="gg"><stop offset="0" stop-color="#5ee7ff"/><stop offset="1" stop-color="#b388ff"/></linearGradient></defs></svg><b>${p.level}</b><small>LEVEL</small></div></div>
+<div class="tabs pt" id="ptabs">${[['ov','Overview'],['BATTLEBOX','Battle Box'],['PROPHUNT','Prop Hunt'],['pk','Parkour'],['cs','Cosmetics']].map((t,i)=>`<button class="tb" data-p="${t[0]}" aria-selected="${!i}">${t[1]}</button>`).join('')}</div><div id="pp"></div>`;
+requestAnimationFrame(()=>{setTimeout(()=>{$('#xpb').style.width=pct+'%';$('#rg').style.transition='stroke-dasharray 1.2s';$('#rg').setAttribute('stroke-dasharray',`${C*pct/100} ${C}`)},60)});
+const sk=$('#sk');sk.parentElement.onmousemove=e=>{const r=sk.getBoundingClientRect();sk.style.transform=`perspective(500px) rotateY(${(e.clientX-r.left-r.width/2)/8}deg)`};
+const pk=p.parkour,bb=p.modes.BATTLEBOX,ph=p.modes.PROPHUNT;
+const panels={ov:`<div class="grid">${ST('Level',p.level,nf(p.xp)+' XP')}${ST('Battle Box Elo',bb?nf(bb.elo):'-',bb?.rank?'#'+bb.rank+' of '+bb.ranked:'')}${ST('Prop Hunt wins',ph?ph.wins:0,p.prophunt?nf(p.prophunt.totalPoints)+' pts':'')}${ST('Parkour',pk?ms(pk.ms):'-',pk?'#'+pk.rank+' of '+pk.total:'')}${ST('Total wins',(bb?.wins||0)+(ph?.wins||0))}${ST('Total kills',(bb?.kills||0)+(ph?.kills||0))}</div><div class="card pt ml" style="margin-top:14px">${matches([...(p.matches.BATTLEBOX||[]),...(p.matches.PROPHUNT||[])].sort((a,b)=>b.t-a.t).slice(0,8))}</div>`,
+BATTLEBOX:modePanel(p,'BATTLEBOX'),PROPHUNT:modePanel(p,'PROPHUNT'),
+pk:pk?`<div class="grid">${ST('Best time',ms(pk.ms),'Set '+ago(pk.at))}${ST('Rank','#'+pk.rank,'of '+pk.total+' finishers')}</div>`:'<div class="card empty">No parkour time yet.</div>',
+cs:`<div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(230px,1fr))">${cat.map(c=>`<div class="card cos ${p.cosmetics.includes(c.id)?'own':''} ${p.equipped===c.id?'eq':''}"><span class="ic">&#10024;</span><div><b>${esc(c.name)}</b><small>${p.cosmetics.includes(c.id)?(p.equipped===c.id?'Equipped':'Owned'):'Unlock: '+esc(c.unlock)}</small></div></div>`).join('')||'<div class="empty">No cosmetics</div>'}</div>`};
+const show=k=>{$('#pp').innerHTML=panels[k];$('#pp').classList.remove('rv')};show('ov');
+$('#ptabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;document.querySelectorAll('#ptabs button').forEach(x=>x.setAttribute('aria-selected',x===b));show(b.dataset.p)}}
+/* ---- routing ---- */
+const MI={battlebox:['Battle Box','Two teams fight over nine center blocks. Pick a kit, capture them all and climb the Elo ladder.'],prophunt:['Prop Hunt','Become the map. Hide, pose and outlast the hunters for points and podiums.']};
+let V='home',MK='battlebox',bb=null,ph=null,SND=1,AC;
+const beep=(f,ms=120,ty='sine')=>{if(!SND)return;try{AC=AC||new AudioContext();const o=AC.createOscillator(),g=AC.createGain();o.type=ty;o.frequency.value=f;g.gain.value=.05;o.connect(g);g.connect(AC.destination);o.start();g.gain.exponentialRampToValueAtTime(.0001,AC.currentTime+ms/1000);o.stop(AC.currentTime+ms/1000)}catch(e){}};
+const best=(k,v)=>{try{let b=+localStorage['lm'+k]||0;if(v>b)localStorage['lm'+k]=b=v;return b}catch(e){window['_'+k]=Math.max(window['_'+k]||0,v||0);return window['_'+k]}};
+/* Hold the center (Battle Box) */
+const BBT=25,bbNew=()=>bb={o:Array(9).fill(0),sc:0,t:BBT,run:0,msg:'Click blocks to claim them. The rival steals yours. Hold all 9 to capture the box.'};
+function bbDraw(){const el=$('#gm');if(!el||!bb)return;
+if(!el.querySelector('[data-b]'))el.innerHTML=`<div class="tg bbg">${[...Array(9)].map((_,i)=>`<button data-b="${i}" aria-label="Block ${i+1}"></button>`).join('')}</div><div><h3 style="font:700 20px var(--d)">Hold the center</h3><p class="sub" id="bm" style="margin:6px 0 10px"></p><div class="tm"><i id="bt"></i></div><p class="note" id="bs" style="font-size:14px"></p><button class="tb" data-r="bb"></button></div>`;
+el.querySelectorAll('[data-b]').forEach((b,i)=>b.className=bb.o[i]?'c'+bb.o[i]:'');
+$('#bm').textContent=bb.msg;$('#bt').style.width=bb.t/BBT*100+'%';$('#bs').textContent='You hold '+bb.o.filter(v=>v==1).length+' of 9 \u00b7 Score '+bb.sc+' \u00b7 Best '+best('bb');el.querySelector('[data-r]').textContent=bb.run?'Restart':'Start round'}
+function bbEnd(m){bb.run=0;clearInterval(bb.iv);bb.msg=m;best('bb',bb.sc);bbDraw()}
+function bbStart(){bbNew();bb.run=1;const s=bb,ix=f=>s.o.map((x,i)=>f(x)?i:-1).filter(i=>i>=0);s.msg='Go! Claim blocks faster than the rival.';
+s.iv=setInterval(()=>{if(bb!==s){clearInterval(s.iv);return}s.t-=.4;const mine=ix(x=>x==1);s.sc+=mine.length;
+for(let j=0;j<(s.t<10?2:1);j++){const a=ix(x=>x!=2),m=ix(x=>x==1),pool=m.length&&Math.random()<.7?m:a;if(pool.length)s.o[pool[Math.random()*pool.length|0]]=2}
+if(s.t<=0)return bbEnd('Time! You held '+ix(x=>x==1).length+' blocks. Score '+s.sc+'.');bbDraw()},400)}
+/* Prop Hunt: hide among the props */
+const PW=560,PHT=320,LR=72,SECS=40,PTY=['Crate','Barrel','Lamp'],mp={x:280,y:200};
+const pc=document.createElement('canvas');pc.width=PW;pc.height=PHT;pc.id='phc';const pk2=pc.getContext('2d');
+const rx=()=>30+Math.random()*(PW-60),ry=()=>50+Math.random()*(PHT-80);
+function phNew(){ph={d:[...Array(16)].map(()=>({x:rx(),y:ry(),t:Math.random()*3|0})),st:0,ty:0,me:null,hx:PW/2,hy:40,wx:PW/2,wy:140,meter:0,f:0,shot:null,fx:[],msg:'Pick a disguise, then click the room to hide. Freeze when the light is near you.'};return ph}
+function phDraw(){const el=$('#gm');if(!el||!ph)return;
+el.innerHTML=`<div><h3 style="font:700 20px var(--d)">Hide as a prop</h3><p class="sub" style="margin:6px 0 12px;max-width:30ch">${ph.msg}</p><div class="tabs">${PTY.map((n,i)=>`<button class="tb" data-pt="${i}" aria-selected="${i===ph.ty}">${n} (${ph.d.filter(q=>q.t===i).length})</button>`).join('')}</div><p class="note" style="font-size:14px">Survive ${SECS}s \u00b7 Best ${best('ph')}s</p><button class="tb" data-r="ph">New room</button></div>`;el.prepend(pc)}
+function phOver(m,win){const g=ph,sec=win?SECS:Math.floor(g.f/60);g.st=2;g.msg=m+' You lasted '+sec+'s.';best('ph',sec);beep(win?880:150,win?300:400,win?'sine':'sawtooth');phDraw()}
+function phStep(){const g=ph;if(!g||g.st===2)return;g.f++;const sec=g.f/60,sp=1.3+(g.st?sec/45:0);
+const ex=g.wx-g.hx,ey=g.wy-g.hy,ed=Math.hypot(ex,ey);
+if(ed<6){const r=Math.random(),t=g.me&&g.st&&r<.15?g.me:r<.6?g.d[Math.random()*g.d.length|0]:null;g.wx=t?t.x:rx();g.wy=t?t.y:ry()}else{g.hx+=ex/ed*sp;g.hy+=ey/ed*sp}
+if(g.st!==1)return;
+const dx=mp.x-g.me.x,dy=mp.y-g.me.y,dd=Math.hypot(dx,dy);let mv=0;if(dd>4){const v=Math.min(2.6,dd);g.me.x+=dx/dd*v;g.me.y+=dy/dd*v;mv=1}
+const inL=Math.hypot(g.hx-g.me.x,g.hy-g.me.y)<LR;g.meter=Math.max(0,g.meter+(inL&&mv?.035:-.02));
+if(g.meter>=1)return phOver('The hunter saw you move in the light!');
+const cyc=Math.max(110,220-(sec*3|0));
+if(!g.shot&&g.f%cyc===0){const c=g.d.concat([g.me]).filter(q=>Math.hypot(q.x-g.hx,q.y-g.hy)<LR);if(c.length){const q=c[Math.random()*c.length|0];g.shot={x:q.x,y:q.y,t:40}}}
+if(g.shot&&--g.shot.t<=0){const h=g.shot;g.shot=null;if(Math.hypot(g.me.x-h.x,g.me.y-h.y)<16)return phOver('Shot! Hunters win.');
+const n=g.d.length;g.d=g.d.filter(q=>Math.hypot(q.x-h.x,q.y-h.y)>14);if(g.d.length<n){g.fx.push({x:h.x,y:h.y,r:6,a:1});beep(200,140,'square')}}
+if(sec>=SECS)phOver('You fooled the hunter. Props win!',1)}
+function propArt(k,q){const s=13;k.save();k.translate(q.x,q.y);
+if(q.t===0){k.fillStyle='#c98b3c';k.fillRect(-s,-s,2*s,2*s);k.strokeStyle='#6b4518';k.lineWidth=2;k.strokeRect(-s,-s,2*s,2*s);k.beginPath();k.moveTo(-s,-s);k.lineTo(s,s);k.moveTo(s,-s);k.lineTo(-s,s);k.stroke()}
+else if(q.t===1){k.fillStyle='#8a5a2b';k.beginPath();k.roundRect(-10,-s,20,2*s,6);k.fill();k.fillStyle='#d9d9e6';k.fillRect(-10,-6,20,3);k.fillRect(-10,4,20,3)}
+else{k.fillStyle='#555a70';k.fillRect(-2,8,4,8);k.fillStyle='#ffe3a3';k.shadowColor='#ffe27a';k.shadowBlur=14;k.beginPath();k.arc(0,0,9,0,7);k.fill()}
+k.restore()}
+function phPaint(){const g=ph,k=pk2;if(!g||!pc.isConnected)return;k.clearRect(0,0,PW,PHT);k.fillStyle='#0d1222';k.fillRect(0,0,PW,PHT);
+k.strokeStyle='#ffffff0a';k.lineWidth=1;for(let i=0;i<PW;i+=40){k.beginPath();k.moveTo(i,0);k.lineTo(i,PHT);k.stroke()}for(let j=0;j<PHT;j+=40){k.beginPath();k.moveTo(0,j);k.lineTo(PW,j);k.stroke()}
+g.d.concat(g.me?[{x:g.me.x,y:g.me.y,t:g.ty}]:[]).sort((a,b)=>a.y-b.y).forEach(q=>propArt(k,q));
+if(g.me&&g.st===1){k.fillStyle='#ffffffaa';k.fillRect(g.me.x-2,g.me.y-26,4,4)}
+g.fx=g.fx.filter(f=>f.a>0);g.fx.forEach(f=>{f.r+=1.5;f.a-=.04;k.strokeStyle='rgba(255,138,154,'+f.a+')';k.lineWidth=2;k.beginPath();k.arc(f.x,f.y,f.r,0,7);k.stroke()});
+if(g.shot){k.strokeStyle='#ff8a9a';k.lineWidth=2;k.beginPath();k.arc(g.shot.x,g.shot.y,10+g.shot.t/3,0,7);k.stroke()}
+k.beginPath();k.rect(0,0,PW,PHT);k.arc(g.hx,g.hy,LR,0,7,true);k.fillStyle='rgba(4,6,13,.84)';k.fill('evenodd');k.strokeStyle='#ffe27a88';k.lineWidth=2;k.beginPath();k.arc(g.hx,g.hy,LR,0,7);k.stroke();
+k.fillStyle='#eef2ff';k.font='14px Manrope,sans-serif';k.textAlign='left';k.fillText(g.st===1?'Time '+Math.floor(g.f/60)+' / '+SECS+'s':g.st===0?'Click the room to hide':'Round over',12,22);
+if(g.st===1){k.fillStyle='#ffffff18';k.fillRect(PW-132,12,120,8);k.fillStyle=g.meter>.6?'#ff8a9a':'#ffe27a';k.fillRect(PW-132,12,120*g.meter,8)}}
+pc.onpointermove=e=>{const r=pc.getBoundingClientRect();mp.x=(e.clientX-r.left)*PW/r.width;mp.y=(e.clientY-r.top)*PHT/r.height};
+pc.onpointerdown=e=>{pc.onpointermove(e);if(!ph)return;if(ph.st===0){ph.me={x:mp.x,y:mp.y};ph.st=1;ph.f=0;ph.msg='Sneak with your cursor. Stay still when the light is close, and dodge when a red ring lands on you.';beep(520,90);phDraw()}else if(ph.st===2){phNew();phDraw()}};
+(function L(){phStep();phPaint();requestAnimationFrame(L)})();
+document.addEventListener('click',e=>{const t=e.target,r=t.closest('[data-r]');
+if(r){if(r.dataset.r==='bb'){bbStart();bbDraw()}else{phNew();phDraw()}return}
+const b=t.closest('[data-b]');if(b){if(!bb.run)bbStart();bb.o[+b.dataset.b]=1;beep(440+bb.o.filter(v=>v==1).length*40,70);if(bb.o.every(v=>v==1)){bb.sc+=50;beep(880,300);return bbEnd('Box captured! +50 bonus. Score '+bb.sc+'.')}bbDraw();return}
+const y=t.closest('[data-pt]');if(y&&ph.st===0){ph.ty=+y.dataset.pt;phDraw()}});
+function modePage(){const i=MI[MK],pk=D.leaderboards.parkour[0],p=MK==='parkour';
+$('#mode').innerHTML=`<div class="w"><h2>${i[0]}</h2><p class="sub">${i[1]}</p><div class="live" style="margin:0 0 28px"><div><strong>${p?(pk?ms(pk.ms):'-'):(D.byMode[MK]||0)}</strong><small>${p?'server record':'playing now'}</small></div><div><strong>${(D.leaderboards[MK]||[]).length}</strong><small>ranked players</small></div></div>${MK==='battlebox'||MK==='prophunt'?'<div class="card gm" id="gm"></div>':''}<div id="mb"></div><div class="note">Click a player to open their profile.</div></div>`;board($('#mb'),MK,0,50);MK==='battlebox'?(bb||bbNew(),bbDraw()):(ph||phNew(),phDraw())}
+function plist(){const v=$('#q2').value.trim().toLowerCase(),r=Object.values(D.players).filter(p=>p.name.toLowerCase().includes(v)).sort((a,b)=>b.level-a.level).slice(0,60);
+$('#pg').innerHTML=r.map(p=>`<div class="card pc" data-n="${esc(p.name)}"><img src="${head(p.uuid,p.name)}" alt=""><div><b>${esc(p.name)}</b><br><small style="color:var(--m)">Level ${p.level}${p.online?' &middot; online':''}</small></div></div>`).join('')||'<div class="empty">No player found</div>'}
+function render(){live();if(V==='home'){board($('#hb'),tab,1,10);board($('#pkb'),'parkour',0,10)}else if(V==='mode')modePage();else if(V==='players')plist()}
+function route(){const h=decodeURIComponent(location.hash.slice(1)),m=h.match(/^\/p\/(.+)/),s=h.replace(/^\/?/,'');
+V=m?'prof':MI[s]?'mode':s==='players'?'players':'home';if(MI[s])MK=s;document.body.dataset.v=V;
+const cur='#/'+(V==='prof'?'players':V==='mode'?MK:V==='home'?'':V);document.querySelectorAll('nav a.l').forEach(a=>a.classList.toggle('on',a.getAttribute('href')===cur));
+if(m)profile(m[1]);else render();
+document.title=(m?m[1]:V==='mode'?MI[MK][0]:V==='players'?'Profiles':'Lumaris - Battle Box, Prop Hunt & Parkour')+(V==='home'?'':' - Lumaris');
+scrollTo(0,0);if(V==='home'&&s)setTimeout(()=>document.getElementById(s)?.scrollIntoView(),30)}
+const go=n=>location.hash='/p/'+encodeURIComponent(n);
+document.addEventListener('click',e=>{const t=e.target.closest('[data-n]');if(t)return go(t.dataset.n);const c=e.target.closest('[data-go]');if(c)return location.hash=c.dataset.go;const b=e.target.closest('#hb button');if(b){tab=b.dataset.t;render()}});
+addEventListener('hashchange',route);
+$('#q2').oninput=plist;$('#q2').onkeydown=e=>{const v=e.target.value.trim();if(e.key==='Enter'&&v)go(byName(v)?.name||v)};
+/* search */
+const q=$('#q'),sg=$('#sug');q.oninput=()=>{const v=q.value.trim().toLowerCase();if(!v){sg.classList.remove('on');return}
+const r=Object.values(D.players).filter(p=>p.name.toLowerCase().includes(v)).slice(0,6);
+sg.innerHTML=r.map(p=>`<button data-n="${esc(p.name)}"><img src="${head(p.uuid,p.name)}" alt="">${esc(p.name)}<small style="margin-left:auto;color:var(--m)">Lv ${p.level}</small></button>`).join('')||'<div class="empty" style="padding:12px">No match</div>';sg.classList.add('on')};
+q.onkeydown=e=>{if(e.key==='Enter'&&q.value.trim()){go(byName(q.value.trim())?.name||q.value.trim());sg.classList.remove('on');q.blur()}};
+document.addEventListener('click',e=>{if(!e.target.closest('.sw'))sg.classList.remove('on')});
+/* data */
+async function load(){try{const r=await fetch(DATA_URL+'?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw 0;D=await r.json()}catch(e){D=demo}
+if(V==='prof')route();else render()}
+load();setInterval(load,REFRESH);route();
+/* misc */
+$('#ipT').textContent=SERVER_IP;document.querySelectorAll('.ipc').forEach(e=>e.textContent=SERVER_IP);
+['#copy','#copy2'].forEach(s=>{const e=$(s),c=()=>navigator.clipboard.writeText(SERVER_IP).then(()=>{const b=e.querySelector('b'),o=b.textContent;b.textContent='Copied!';setTimeout(()=>b.textContent=o,1500)});e.onclick=c;e.onkeydown=k=>{if(k.key==='Enter'||k.key===' '){k.preventDefault();c()}}});
+$('#g9').innerHTML=[...Array(9)].map((_,i)=>`<rect x="${4+(i%3)*19}" y="${4+Math.floor(i/3)*19}" width="16" height="16" rx="3.5" fill="${[0,2,4,7].includes(i)?'#5ee7ff':[1,5,8].includes(i)?'#b388ff':'#1e2740'}"/>`).join('');
+const io=new IntersectionObserver(es=>es.forEach(x=>x.isIntersecting&&x.target.classList.add('in')),{threshold:.15});document.querySelectorAll('.rv').forEach(e=>io.observe(e));
+document.querySelectorAll('.mc').forEach(c=>{c.onmousemove=e=>{const r=c.getBoundingClientRect();c.style.transform=`perspective(700px) rotateY(${(e.clientX-r.left-r.width/2)/r.width*10}deg) rotateX(${-(e.clientY-r.top-r.height/2)/r.height*10}deg)`};c.onmouseleave=()=>c.style.transform=''});
+/* click anywhere: squares appear and glow, then fade */
+const cv=$('#bg'),x=cv.getContext('2d');let W,H,S=[],run=0;
+const rs=()=>{W=cv.width=innerWidth;H=cv.height=innerHeight};rs();addEventListener('resize',rs);
+function tick(t){x.clearRect(0,0,W,H);S=S.filter(s=>t-s.t<s.l);
+for(const s of S){const k=(t-s.t)/s.l;if(k<0)continue;const a=1-k,z=s.s*(1+k*.6);x.save();x.translate(s.x,s.y-k*40);x.rotate(s.r+k*.8);x.shadowColor='rgb('+s.c+')';x.shadowBlur=30*a;x.fillStyle='rgba('+s.c+','+a*.55+')';x.strokeStyle='rgba('+s.c+','+a+')';x.lineWidth=2;x.beginPath();x.rect(-z/2,-z/2,z,z);x.fill();x.stroke();x.restore()}
+if(S.length)requestAnimationFrame(tick);else{run=0;x.clearRect(0,0,W,H)}}
+document.addEventListener('pointerdown',e=>{if(e.target.closest('a,button,input,[data-n],[data-go],.card,.ip,nav,.sug'))return;const t=performance.now();
+for(let i=0;i<4;i++)S.push({x:e.clientX+(i?(Math.random()-.5)*110:0),y:e.clientY+(i?(Math.random()-.5)*110:0),s:16+Math.random()*28,r:Math.random(),t:t+i*80,l:1800,c:['255,226,122','199,155,255','255,226,163','226,205,255'][Math.random()*4|0]});
+if(!run){run=1;requestAnimationFrame(tick)}});
+
+addEventListener('pointermove',e=>{const r=document.documentElement.style;r.setProperty('--mx',e.clientX+'px');r.setProperty('--my',e.clientY+'px')});
+/* ---- parkour runner ---- */
+(()=>{const c=$('#pkc'),k=c.getContext('2d');let y,v,o,co,pt,sc,lm,on=0,f,sp,hold=0,bk=best('pk');
+const st=[...Array(40)].map(()=>({x:Math.random()*640,y:Math.random()*130,z:Math.random()*1.5+.3}));
+const reset=()=>{y=0;v=0;o=[];co=[];pt=[];sc=0;lm=0;f=0;sp=5.5};reset();
+const tx=(a,b)=>{k.fillStyle='#eef2ff';k.textAlign='center';k.font='800 24px Pixelify Sans,sans-serif';k.fillText(a,320,76);k.font='15px Manrope,sans-serif';k.fillText(b,320,104)};
+function draw(){k.clearRect(0,0,640,180);st.forEach(q=>{if(on)q.x=(q.x-q.z*sp*.25+640)%640;k.fillStyle='rgba(238,242,255,'+q.z*.25+')';k.fillRect(q.x,q.y,q.z+.5,q.z+.5)});
+k.fillStyle='#2b2350';k.fillRect(0,150,640,30);k.fillStyle='#c8c28a';k.fillRect(0,150,640,4);k.shadowColor='#c79bff';k.shadowBlur=16;k.fillStyle='#c79bff';o.forEach(b=>k.fillRect(b.x,150-b.h,b.w,b.h));
+k.shadowColor='#ffd27a';k.fillStyle='#ffd27a';co.forEach(q=>{k.beginPath();k.arc(q.x,q.y,7,0,7);k.fill()});k.shadowBlur=0;
+pt.forEach(q=>{k.globalAlpha=q.a;k.fillStyle='#ffe27a';k.fillRect(q.x,q.y,4,4)});k.globalAlpha=1;
+k.shadowColor='#ffe27a';k.shadowBlur=24;k.fillStyle='#ffe3a3';k.fillRect(60,124-y,26,26);k.shadowBlur=0;
+k.fillStyle='#eef2ff';k.textAlign='left';k.font='14px Manrope,sans-serif';k.fillText('Score '+(sc+lm*2)+'   Lumens '+lm+'   Best '+bk,12,22)}
+const idle=()=>{draw();tx('Hub Parkour','Click or press Space to jump. Hold to jump higher. Catch the lumens.')};
+function end(){on=0;bk=best('pk',sc+lm*2);beep(150,300,'sawtooth');draw();tx('Crashed! Score '+(sc+lm*2),'Click or press Space to run again')}
+function loop(){if(!on)return;f++;
+if(f%Math.max(38,85-(sc/5|0))===0){const h=18+Math.random()*30;o.push({x:660,w:16+Math.random()*22,h});if(Math.random()<.6)co.push({x:690+Math.random()*60,y:150-h-30-Math.random()*50})}
+v-=(hold&&v>0)?.5:.85;y=Math.max(0,y+v);if(!y&&v<0)v=0;sp=5.5+sc/70;o.forEach(b=>b.x-=sp);co.forEach(q=>q.x-=sp);
+if(o[0]&&o[0].x+o[0].w<0){o.shift();sc++}
+co=co.filter(q=>{if(q.x<-10)return 0;if(Math.abs(q.x-73)<20&&Math.abs(q.y-(137-y))<20){lm++;beep(880,80);return 0}return 1});
+if(f%2==0)pt.push({x:60,y:144-y+Math.random()*10,a:.7});pt.forEach(q=>{q.x-=sp*.7;q.a-=.035});pt=pt.filter(q=>q.a>0);
+if(o.some(b=>b.x<86&&b.x+b.w>60&&y<b.h-3))return end();draw();requestAnimationFrame(loop)}
+const jump=()=>{if(!on){reset();on=1;loop()}else if(!y){v=10;beep(520,70)}};
+c.onpointerdown=()=>{hold=1;jump()};addEventListener('pointerup',()=>hold=0);
+addEventListener('keydown',e=>{const r=c.getBoundingClientRect();if(e.code==='Space'&&!e.repeat&&V==='home'&&!/INPUT|BUTTON/.test(document.activeElement.tagName)&&r.top<innerHeight&&r.bottom>0){e.preventDefault();hold=1;jump()}});
+addEventListener('keyup',e=>{if(e.code==='Space')hold=0});
+idle();document.fonts.ready.then(()=>{if(!on)idle()})})();
+$('#snd').onclick=e=>{SND=!SND;e.target.textContent='Sound: '+(SND?'on':'off')};
+
 /* ===== LUMARIS UPDATE: sounds + count-up numbers + Lumens store =====
-   PASTE THIS whole block right before the final </script> in your page. */
+   PASTE THIS whole block at the end of your page's main script. */
 
 /* ---- settings ---- */
 /* Put your checkout link here. Placeholders: {user} {lumens} {cad}. Example (Tebex-style):
@@ -73,3 +422,5 @@ function store(){if(!/^#\/?store$/.test(location.hash))return;V='shop';document.
 addEventListener('hashchange',store);store();
 fetch('https://open.er-api.com/v6/latest/CAD').then(r=>r.json()).then(j=>{if(j&&j.rates&&j.rates.USD){FX=j.rates.USD;if(V==='shop')renderStore()}}).catch(()=>{});
 })();
+
+</script></body></html>
