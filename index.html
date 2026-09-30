@@ -1,9 +1,211 @@
 <!DOCTYPE html>
-<html>
-<head><title>Lumaris</title></head>
-<body style="background:#0b0f1a;color:#5ee7ff;font-family:sans-serif;text-align:center;padding-top:20vh">
-  <h1>Lumaris</h1>
-  <p>Battle Box · Prop Hunt · Parkour</p>
-  <p>Stats coming soon</p>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lumaris - Battle Box, Prop Hunt & Parkour</title>
+<meta name="description" content="Lumaris Minecraft server: capture the center in Battle Box, hide as a block in Prop Hunt, race the hub parkour.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Figtree:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--void:#070a14;--panel:#0f1424;--line:#1e2740;--cyan:#5ee7ff;--purple:#b388ff;--text:#e8ecf8;--mut:#8b95b3;--rose:#ff7b93;
+--d:'Unbounded',system-ui,sans-serif;--b:'Figtree',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--void);color:var(--text);font:400 16px/1.6 var(--b);overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+nav{position:fixed;inset:0 0 auto;z-index:9;backdrop-filter:blur(14px);background:#070a14b3;border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font:700 17px var(--d);letter-spacing:.06em;background:linear-gradient(90deg,var(--cyan),var(--purple));-webkit-background-clip:text;background-clip:text;color:transparent}
+nav ul{display:flex;gap:26px;list-style:none;font-weight:500;color:var(--mut)}
+nav ul a:hover{color:var(--text)}
+.hero{min-height:100svh;display:grid;align-items:center;padding:96px 0 48px;position:relative;
+background:radial-gradient(60% 50% at 78% 45%,#b388ff26,transparent 70%),radial-gradient(45% 40% at 20% 80%,#5ee7ff14,transparent 70%)}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+h1{font:700 clamp(38px,6vw,72px)/1.04 var(--d);letter-spacing:-.02em}
+h1 span{display:block;background:linear-gradient(90deg,var(--cyan),var(--purple));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{margin:22px 0 30px;color:var(--mut);font-size:18px;max-width:46ch}
+.ip{display:inline-flex;align-items:center;gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:8px 8px 8px 20px;cursor:pointer;transition:border-color .2s}
+.ip:hover{border-color:var(--cyan)}
+.ip code{font:500 17px var(--b);color:var(--cyan)}
+.ip b{background:linear-gradient(90deg,var(--cyan),var(--purple));color:#06101a;border-radius:9px;padding:9px 16px;font-size:14px}
+.live{display:flex;gap:34px;margin-top:34px;flex-wrap:wrap}
+.live div{min-width:80px}
+.live strong{display:block;font:700 30px var(--d)}
+.live small{color:var(--mut);font-size:13px}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--cyan);margin-right:8px;box-shadow:0 0 12px var(--cyan);animation:p 2s infinite}
+@keyframes p{50%{opacity:.35}}
+#arena{width:100%;aspect-ratio:1;max-width:520px;justify-self:center;transition:transform .15s ease-out;cursor:crosshair}
+section{padding:96px 0}
+h2{font:700 clamp(26px,3.6vw,40px)/1.15 var(--d);letter-spacing:-.01em;margin-bottom:12px}
+.sub{color:var(--mut);max-width:56ch;margin-bottom:44px}
+.mode{display:grid;grid-template-columns:120px 1fr auto;gap:28px;align-items:center;padding:30px 0;border-top:1px solid var(--line)}
+.mode:last-child{border-bottom:1px solid var(--line)}
+.mode svg{width:96px;height:96px}
+.mode h3{font:700 22px var(--d);margin-bottom:6px}
+.mode p{color:var(--mut);max-width:58ch}
+.mode .n{text-align:right;font:700 28px var(--d)}
+.mode .n small{display:block;font:400 13px var(--b);color:var(--mut)}
+.tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+.tabs button,.search{font:500 15px var(--b);color:var(--mut);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 18px;cursor:pointer}
+.tabs button[aria-selected=true]{color:#06101a;background:linear-gradient(90deg,var(--cyan),var(--purple));border-color:transparent}
+.search{cursor:text;color:var(--text);margin-left:auto;min-width:220px}
+.board{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+table{width:100%;border-collapse:collapse}
+th{font-weight:500;color:var(--mut);font-size:13px;text-align:left;padding:14px 18px;border-bottom:1px solid var(--line)}
+td{padding:12px 18px;border-bottom:1px solid #161d33}
+tr:last-child td{border:0}
+tbody tr{cursor:pointer;transition:background .15s}
+tbody tr:hover{background:#151c33}
+.rk{width:52px;font:700 15px var(--d);color:var(--mut)}
+tr.top1 .rk{color:#ffd479}tr.top2 .rk{color:#cdd6ea}tr.top3 .rk{color:#e0a070}
+.pl{display:flex;align-items:center;gap:12px;font-weight:500}
+.pl img{width:32px;height:32px;border-radius:7px;image-rendering:pixelated;background:var(--line)}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+th.num{text-align:right}
+.bar{height:5px;border-radius:3px;background:var(--line);margin-top:6px;width:90px;margin-left:auto}
+.bar i{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,var(--cyan),var(--purple))}
+.empty{padding:40px;text-align:center;color:var(--mut)}
+.pill{font-size:12px;color:var(--mut);margin-top:12px}
+.pill.warn{color:var(--rose)}
+#card{margin-top:22px;display:none;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px;gap:26px;align-items:center;flex-wrap:wrap}
+#card.on{display:flex;animation:pop .3s ease-out}
+@keyframes pop{from{opacity:0;transform:translateY(8px)}}
+#card img{width:84px;height:84px;border-radius:14px;image-rendering:pixelated}
+#card h3{font:700 24px var(--d)}
+.stats{display:flex;gap:30px;flex-wrap:wrap;margin-left:auto}
+.stats div strong{display:block;font:700 22px var(--d)}
+.stats small{color:var(--mut)}
+.join{text-align:center;border-top:1px solid var(--line)}
+.join .ip{margin-top:10px}
+footer{padding:36px 0;color:var(--mut);font-size:14px;text-align:center;border-top:1px solid var(--line)}
+@media(max-width:820px){nav ul{display:none}.hero .wrap{grid-template-columns:1fr}#arena{max-width:340px;order:-1}
+.mode{grid-template-columns:72px 1fr}.mode svg{width:64px;height:64px}.mode .n{grid-column:2;text-align:left}
+.search{margin-left:0;width:100%}th:nth-child(n+4),td:nth-child(n+4){display:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo" href="#top">LUMARIS</a>
+<ul><li><a href="#modes">Modes</a></li><li><a href="#leaderboards">Leaderboards</a></li><li><a href="#join">Join</a></li></ul></div></nav>
+
+<header class="hero" id="top"><div class="wrap">
+<div>
+<h1>Hold the center.<span>Win the box.</span></h1>
+<p class="lead">Fast team fights over a nine-block center, hide-and-seek where you are a block, and a parkour you can race for the top time.</p>
+<div class="ip" id="copy" role="button" tabindex="0" aria-label="Copy server address"><code id="ipText"></code><b id="copyBtn">Copy IP</b></div>
+<div class="live" aria-live="polite">
+<div><strong id="on">0</strong><small><span class="dot"></span>online now</small></div>
+<div><strong id="hub">0</strong><small>in the hub</small></div>
+<div><strong id="play">0</strong><small>in games</small></div>
+</div></div>
+<canvas id="arena" width="520" height="520" role="img" aria-label="Animated Battle Box center: two teams capturing nine blocks"></canvas>
+</div></header>
+
+<section id="modes"><div class="wrap">
+<h2>Three ways to play</h2><p class="sub">Queue solo or with a party. Every mode has its own ranking below.</p>
+<div class="mode"><svg viewBox="0 0 96 96" aria-hidden="true"><g id="g9"></g></svg>
+<div><h3>Battle Box</h3><p>Two teams, one nine-block center. Pick a kit, capture every block, and score before the round clock runs out. First team to the target score wins.</p></div>
+<div class="n"><span id="m-bb">0</span><small>playing</small></div></div>
+<div class="mode"><svg viewBox="0 0 96 96" aria-hidden="true"><rect x="22" y="22" width="52" height="52" rx="8" fill="none" stroke="#b388ff" stroke-width="3" stroke-dasharray="7 6"/><rect x="34" y="34" width="28" height="28" rx="5" fill="#b388ff"/></svg>
+<div><h3>Prop Hunt</h3><p>Hide as any block in the map while hunters search. Stay still, squeeze into tight gaps, and outlast the clock.</p></div>
+<div class="n"><span id="m-ph">0</span><small>playing</small></div></div>
+<div class="mode"><svg viewBox="0 0 96 96" aria-hidden="true"><path d="M14 74h22V54h20V34h26" fill="none" stroke="#5ee7ff" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/></svg>
+<div><h3>Hub Parkour</h3><p>A timed run right in the hub. Your best time is saved and ranked against everyone on the server.</p></div>
+<div class="n"><span id="m-pk">-</span><small>best time</small></div></div>
+</div></section>
+
+<section id="leaderboards" style="background:linear-gradient(#0b1020,var(--void))"><div class="wrap">
+<h2>Leaderboards</h2><p class="sub">Updated every minute from the live server. Click a player for their full stats.</p>
+<div class="tabs" role="tablist" id="tabs">
+<button role="tab" data-t="battlebox" aria-selected="true">Battle Box</button>
+<button role="tab" data-t="prophunt" aria-selected="false">Prop Hunt</button>
+<button role="tab" data-t="parkour" aria-selected="false">Parkour</button>
+<input class="search" id="q" type="search" placeholder="Find a player" aria-label="Find a player">
+</div>
+<div class="board"><table><thead id="th"></thead><tbody id="tb"></tbody></table><div class="empty" id="empty" hidden>No players match that name.</div></div>
+<div class="pill" id="pill"></div>
+<div id="card"><img id="cImg" alt=""><div><h3 id="cName"></h3><small id="cSub" style="color:var(--mut)"></small></div><div class="stats" id="cStats"></div></div>
+</div></section>
+
+<section class="join" id="join"><div class="wrap">
+<h2>Ready when you are</h2><p class="sub" style="margin-inline:auto">Add the server in Minecraft Java 1.21.11 and you land in the hub. Use the compass to pick a mode.</p>
+<div class="ip" id="copy2" role="button" tabindex="0"><code class="ipc"></code><b>Copy IP</b></div>
+</div></section>
+<footer>Lumaris is not affiliated with Mojang or Microsoft.</footer>
+
+<script>
+// ---- SETTINGS -------------------------------------------------------------
+const SERVER_IP='lumaris.minecraft.co.com';
+const API='/api/stats';          // your Cloudflare Worker / Pages Function (see JSON shape below)
+const REFRESH_MS=30000;
+/* Expected JSON: {online,hub,byMode:{battlebox,prophunt},updated,
+   leaderboards:{battlebox:[{name,uuid,elo,wins,kills,deaths,level}],
+                 prophunt:[{name,uuid,wins,kills,level}], parkour:[{name,uuid,ms}]}} */
+// ---------------------------------------------------------------------------
+const $=s=>document.querySelector(s);
+const demo=(()=>{const n=['Nyx','Vale','Orion','Kestrel','Juniper','Halcyon','Mako','Sable','Ember','Quill'];
+const r=(i,a,b)=>a+((i*7919)%(b-a));
+return{online:14,hub:6,byMode:{battlebox:5,prophunt:3},updated:Date.now(),demo:true,leaderboards:{
+battlebox:n.map((x,i)=>({name:x,elo:1900-i*63,wins:r(i,30,90)-i*3,kills:r(i,300,900)-i*20,deaths:r(i,150,500),level:60-i*4})),
+prophunt:n.map((x,i)=>({name:x,wins:r(i,20,70)-i*2,kills:r(i,100,400)-i*9,level:58-i*4})),
+parkour:n.map((x,i)=>({name:x,ms:41200+i*2380}))}}})();
+let data=demo,tab='battlebox';
+const cols={battlebox:[['Elo','elo'],['Wins','wins'],['Kills','kills'],['Level','level']],
+prophunt:[['Wins','wins'],['Kills','kills'],['Level','level']],parkour:[['Best time','ms']]};
+const fmt=(k,v)=>k==='ms'?(v/1000).toFixed(2)+'s':(v??0).toLocaleString();
+const head=p=>`https://minotar.net/helm/${encodeURIComponent(p.name)}/64.png`;
+function countUp(el,to){const from=+el.textContent||0,t0=performance.now();
+(function f(t){const k=Math.min(1,(t-t0)/700);el.textContent=Math.round(from+(to-from)*k);if(k<1)requestAnimationFrame(f)})(t0)}
+function renderLive(){countUp($('#on'),data.online);countUp($('#hub'),data.hub);countUp($('#play'),Math.max(0,data.online-data.hub));
+$('#m-bb').textContent=data.byMode.battlebox;$('#m-ph').textContent=data.byMode.prophunt;
+const pk=data.leaderboards.parkour[0];$('#m-pk').textContent=pk?(pk.ms/1000).toFixed(2)+'s':'-';
+const p=$('#pill');p.className='pill'+(data.demo?' warn':'');
+p.textContent=data.demo?'Showing sample data - the live feed is not connected yet.':'Updated '+new Date(data.updated).toLocaleTimeString();}
+function renderBoard(){const list=data.leaderboards[tab]||[],c=cols[tab],q=$('#q').value.trim().toLowerCase();
+$('#th').innerHTML='<tr><th>#</th><th>Player</th>'+c.map(x=>`<th class="num">${x[0]}</th>`).join('')+'</tr>';
+const max=Math.max(1,...list.map(p=>p[c[0][1]]||0));
+const rows=list.map((p,i)=>({p,i})).filter(o=>o.p.name.toLowerCase().includes(q));
+$('#tb').innerHTML=rows.map(({p,i})=>`<tr class="top${i<3?i+1:''}" data-i="${i}"><td class="rk">${i+1}</td>
+<td><div class="pl"><img src="${head(p)}" alt="" loading="lazy">${p.name}</div></td>`+
+c.map((x,j)=>`<td class="num">${fmt(x[1],p[x[1]])}${j===0&&tab!=='parkour'?`<div class="bar"><i style="width:${Math.round((p[x[1]]||0)/max*100)}%"></i></div>`:''}</td>`).join('')+'</tr>').join('');
+$('#empty').hidden=rows.length>0;}
+function showCard(p){const s=[];const L=data.leaderboards;
+const bb=L.battlebox.find(x=>x.name===p.name),ph=L.prophunt.find(x=>x.name===p.name),pk=L.parkour.find(x=>x.name===p.name);
+const lvl=(bb||ph||{}).level;if(lvl)s.push(['Level',lvl]);
+if(bb){s.push(['Battle Box Elo',bb.elo.toLocaleString()]);s.push(['K/D',(bb.kills/Math.max(1,bb.deaths)).toFixed(2)])}
+if(ph)s.push(['Prop Hunt wins',ph.wins]);if(pk)s.push(['Parkour',(pk.ms/1000).toFixed(2)+'s']);
+$('#cImg').src=head(p).replace('/64.png','/128.png');$('#cName').textContent=p.name;
+$('#cSub').textContent='Player profile';
+$('#cStats').innerHTML=s.map(x=>`<div><strong>${x[1]}</strong><small>${x[0]}</small></div>`).join('');
+$('#card').classList.add('on');$('#card').scrollIntoView({behavior:'smooth',block:'nearest'})}
+$('#tb').onclick=e=>{const tr=e.target.closest('tr');if(tr)showCard(data.leaderboards[tab][tr.dataset.i])};
+$('#tabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;tab=b.dataset.t;
+document.querySelectorAll('#tabs button').forEach(x=>x.setAttribute('aria-selected',x===b));renderBoard()};
+$('#q').oninput=renderBoard;
+async function load(){try{const r=await fetch(API,{cache:'no-store'});if(!r.ok)throw 0;data=await r.json()}catch(e){data=demo}
+renderLive();renderBoard()}
+load();setInterval(load,REFRESH_MS);
+// copy IP
+$('#ipText').textContent=SERVER_IP;document.querySelectorAll('.ipc').forEach(e=>e.textContent=SERVER_IP);
+function copy(btn){navigator.clipboard.writeText(SERVER_IP).then(()=>{const b=btn.querySelector('b'),o=b.textContent;b.textContent='Copied!';setTimeout(()=>b.textContent=o,1600)})}
+['#copy','#copy2'].forEach(s=>{const e=$(s);e.onclick=()=>copy(e);e.onkeydown=k=>{if(k.key==='Enter'||k.key===' '){k.preventDefault();copy(e)}}});
+// small nine-block icon
+$('#g9').innerHTML=[...Array(9)].map((_,i)=>`<rect x="${8+(i%3)*30}" y="${8+Math.floor(i/3)*30}" width="26" height="26" rx="5" fill="${[0,2,4,7].includes(i)?'#5ee7ff':[1,5,8].includes(i)?'#b388ff':'#1e2740'}"/>`).join('');
+// hero: the nine-block center being captured
+const cv=$('#arena'),cx=cv.getContext('2d'),reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const order=[4,0,8,2,6,1,7,3,5],cols2=['#5ee7ff','#b388ff'];let step=0,team=0,t0=performance.now(),own=Array(9).fill(-1),flash=Array(9).fill(0);
+function draw(now){cx.clearRect(0,0,520,520);const s=140,g=18,o=(520-(s*3+g*2))/2;
+if(!reduce&&now-t0>420){t0=now;if(step<9){own[order[step]]=team;flash[order[step]]=1;step++}else if(now-t0>-1&&step===9){step=10;setTimeout(()=>{own.fill(-1);step=0;team=1-team},1500)}}
+for(let i=0;i<9;i++){const x=o+(i%3)*(s+g),y=o+Math.floor(i/3)*(s+g);flash[i]*=.92;const c=own[i]<0?null:cols2[own[i]];
+cx.save();cx.shadowColor=c||'transparent';cx.shadowBlur=c?26+flash[i]*40:0;cx.fillStyle=c?c+(flash[i]>.3?'ff':'cc'):'#131a30';
+cx.beginPath();cx.roundRect(x,y,s,s,16);cx.fill();cx.restore();
+cx.strokeStyle=c?'#ffffff33':'#26305a';cx.lineWidth=2;cx.beginPath();cx.roundRect(x+1,y+1,s-2,s-2,15);cx.stroke()}
+if(!reduce)requestAnimationFrame(draw)}
+if(reduce){own=[0,1,0,1,0,1,0,1,0]}requestAnimationFrame(draw);
+if(!reduce)document.addEventListener('pointermove',e=>{const x=(e.clientX/innerWidth-.5)*10,y=(e.clientY/innerHeight-.5)*-10;cv.style.transform=`perspective(900px) rotateY(${x}deg) rotateX(${y}deg)`});
+</script>
 </body>
 </html>
