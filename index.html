@@ -1,211 +1,232 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Lumaris - Battle Box, Prop Hunt & Parkour</title>
-<meta name="description" content="Lumaris Minecraft server: capture the center in Battle Box, hide as a block in Prop Hunt, race the hub parkour.">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta name="description" content="Lumaris Minecraft server: leaderboards and player profiles for Battle Box, Prop Hunt and Hub Parkour.">
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Figtree:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--void:#070a14;--panel:#0f1424;--line:#1e2740;--cyan:#5ee7ff;--purple:#b388ff;--text:#e8ecf8;--mut:#8b95b3;--rose:#ff7b93;
---d:'Unbounded',system-ui,sans-serif;--b:'Figtree',system-ui,sans-serif}
-*{box-sizing:border-box;margin:0}
-html{scroll-behavior:smooth}
-body{background:var(--void);color:var(--text);font:400 16px/1.6 var(--b);overflow-x:hidden}
-a{color:inherit;text-decoration:none}
-:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:6px}
-.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
-nav{position:fixed;inset:0 0 auto;z-index:9;backdrop-filter:blur(14px);background:#070a14b3;border-bottom:1px solid var(--line)}
-nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
-.logo{font:700 17px var(--d);letter-spacing:.06em;background:linear-gradient(90deg,var(--cyan),var(--purple));-webkit-background-clip:text;background-clip:text;color:transparent}
-nav ul{display:flex;gap:26px;list-style:none;font-weight:500;color:var(--mut)}
-nav ul a:hover{color:var(--text)}
-.hero{min-height:100svh;display:grid;align-items:center;padding:96px 0 48px;position:relative;
-background:radial-gradient(60% 50% at 78% 45%,#b388ff26,transparent 70%),radial-gradient(45% 40% at 20% 80%,#5ee7ff14,transparent 70%)}
-.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
-h1{font:700 clamp(38px,6vw,72px)/1.04 var(--d);letter-spacing:-.02em}
-h1 span{display:block;background:linear-gradient(90deg,var(--cyan),var(--purple));-webkit-background-clip:text;background-clip:text;color:transparent}
-.lead{margin:22px 0 30px;color:var(--mut);font-size:18px;max-width:46ch}
-.ip{display:inline-flex;align-items:center;gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:8px 8px 8px 20px;cursor:pointer;transition:border-color .2s}
-.ip:hover{border-color:var(--cyan)}
-.ip code{font:500 17px var(--b);color:var(--cyan)}
-.ip b{background:linear-gradient(90deg,var(--cyan),var(--purple));color:#06101a;border-radius:9px;padding:9px 16px;font-size:14px}
-.live{display:flex;gap:34px;margin-top:34px;flex-wrap:wrap}
-.live div{min-width:80px}
-.live strong{display:block;font:700 30px var(--d)}
-.live small{color:var(--mut);font-size:13px}
-.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--cyan);margin-right:8px;box-shadow:0 0 12px var(--cyan);animation:p 2s infinite}
-@keyframes p{50%{opacity:.35}}
-#arena{width:100%;aspect-ratio:1;max-width:520px;justify-self:center;transition:transform .15s ease-out;cursor:crosshair}
-section{padding:96px 0}
-h2{font:700 clamp(26px,3.6vw,40px)/1.15 var(--d);letter-spacing:-.01em;margin-bottom:12px}
-.sub{color:var(--mut);max-width:56ch;margin-bottom:44px}
-.mode{display:grid;grid-template-columns:120px 1fr auto;gap:28px;align-items:center;padding:30px 0;border-top:1px solid var(--line)}
-.mode:last-child{border-bottom:1px solid var(--line)}
-.mode svg{width:96px;height:96px}
-.mode h3{font:700 22px var(--d);margin-bottom:6px}
-.mode p{color:var(--mut);max-width:58ch}
-.mode .n{text-align:right;font:700 28px var(--d)}
-.mode .n small{display:block;font:400 13px var(--b);color:var(--mut)}
+:root{--bg:#060813;--pn:#0e1325cc;--ln:#ffffff14;--c:#5ee7ff;--p:#b388ff;--t:#e9edfb;--m:#8d97b8;--g:#5dffa0;--r:#ff7b93;--y:#ffd479;--d:'Unbounded',sans-serif;--b:'Figtree',sans-serif}
+*{box-sizing:border-box;margin:0}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--t);font:400 16px/1.6 var(--b);overflow-x:hidden}
+a{color:inherit;text-decoration:none}button,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--c);outline-offset:3px;border-radius:8px}
+#bg{position:fixed;inset:0;z-index:-1;width:100%;height:100%}
+.w{max-width:1140px;margin:0 auto;padding:0 22px}
+nav{position:fixed;inset:0 0 auto;z-index:20;backdrop-filter:blur(16px);background:#060813aa;border-bottom:1px solid var(--ln)}
+nav .w{display:flex;align-items:center;gap:26px;height:62px}
+.logo{font:700 17px var(--d);letter-spacing:.08em;background:linear-gradient(90deg,var(--c),var(--p));-webkit-background-clip:text;background-clip:text;color:transparent}
+nav a.l{color:var(--m);font-weight:500}nav a.l:hover{color:var(--t)}
+.sw{margin-left:auto;position:relative;width:min(260px,46vw)}
+.sw input{width:100%;background:#ffffff0d;border:1px solid var(--ln);border-radius:12px;padding:9px 14px}
+.sug{position:absolute;top:110%;left:0;right:0;background:#0e1325;border:1px solid var(--ln);border-radius:12px;overflow:hidden;display:none}
+.sug.on{display:block}.sug button{display:flex;gap:10px;align-items:center;width:100%;padding:8px 12px;background:none;border:0;cursor:pointer;text-align:left}
+.sug button:hover{background:#ffffff12}.sug img{width:24px;height:24px;border-radius:6px}
+.hero{min-height:100svh;display:grid;align-items:center;padding:100px 0 50px}
+.hero .w{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+h1{font:700 clamp(38px,6.2vw,74px)/1.03 var(--d);letter-spacing:-.025em}
+.gr{background:linear-gradient(90deg,var(--c),var(--p),var(--c));background-size:200%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 6s linear infinite}
+@keyframes sh{to{background-position:200%}}
+.lead{margin:20px 0 28px;color:var(--m);font-size:18px;max-width:46ch}
+.ip{display:inline-flex;align-items:center;gap:14px;background:var(--pn);border:1px solid var(--ln);border-radius:14px;padding:8px 8px 8px 20px;cursor:pointer;transition:.2s}
+.ip:hover{border-color:var(--c);box-shadow:0 0 30px #5ee7ff30}.ip code{font:500 17px var(--b);color:var(--c)}
+.ip b{background:linear-gradient(90deg,var(--c),var(--p));color:#06101a;border-radius:9px;padding:9px 16px;font-size:14px}
+.live{display:flex;gap:30px;margin-top:32px;flex-wrap:wrap}.live strong{display:block;font:700 30px var(--d)}.live small{color:var(--m);font-size:13px}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--g);margin-right:7px;box-shadow:0 0 12px var(--g);animation:pl 2s infinite}@keyframes pl{50%{opacity:.3}}
+.card{background:var(--pn);border:1px solid var(--ln);border-radius:18px;backdrop-filter:blur(10px)}
+.feed{padding:20px}.feed h3{font:700 13px var(--d);color:var(--m);letter-spacing:.1em;margin-bottom:12px}
+.fr{display:flex;align-items:center;gap:12px;padding:9px 8px;border-radius:12px;cursor:pointer;transition:.15s}.fr:hover{background:#ffffff0f;transform:translateX(4px)}
+.fr img{width:34px;height:34px;border-radius:8px}.fr span{margin-left:auto;color:var(--c);font-weight:700}
+section{padding:90px 0}h2{font:700 clamp(26px,3.6vw,40px)/1.15 var(--d);margin-bottom:10px}.sub{color:var(--m);max-width:56ch;margin-bottom:40px}
+.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.mc{padding:28px;transition:transform .15s,border-color .2s;transform-style:preserve-3d}.mc:hover{border-color:var(--p)}
+.mc svg{width:64px;height:64px;margin-bottom:14px}.mc h3{font:700 20px var(--d);margin-bottom:6px}.mc p{color:var(--m);font-size:15px}
+.mc .n{margin-top:16px;font:700 13px var(--d);color:var(--c)}
 .tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
-.tabs button,.search{font:500 15px var(--b);color:var(--mut);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 18px;cursor:pointer}
-.tabs button[aria-selected=true]{color:#06101a;background:linear-gradient(90deg,var(--cyan),var(--purple));border-color:transparent}
-.search{cursor:text;color:var(--text);margin-left:auto;min-width:220px}
-.board{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden}
-table{width:100%;border-collapse:collapse}
-th{font-weight:500;color:var(--mut);font-size:13px;text-align:left;padding:14px 18px;border-bottom:1px solid var(--line)}
-td{padding:12px 18px;border-bottom:1px solid #161d33}
-tr:last-child td{border:0}
-tbody tr{cursor:pointer;transition:background .15s}
-tbody tr:hover{background:#151c33}
-.rk{width:52px;font:700 15px var(--d);color:var(--mut)}
-tr.top1 .rk{color:#ffd479}tr.top2 .rk{color:#cdd6ea}tr.top3 .rk{color:#e0a070}
-.pl{display:flex;align-items:center;gap:12px;font-weight:500}
-.pl img{width:32px;height:32px;border-radius:7px;image-rendering:pixelated;background:var(--line)}
-.num{text-align:right;font-variant-numeric:tabular-nums}
-th.num{text-align:right}
-.bar{height:5px;border-radius:3px;background:var(--line);margin-top:6px;width:90px;margin-left:auto}
-.bar i{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,var(--cyan),var(--purple))}
-.empty{padding:40px;text-align:center;color:var(--mut)}
-.pill{font-size:12px;color:var(--mut);margin-top:12px}
-.pill.warn{color:var(--rose)}
-#card{margin-top:22px;display:none;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px;gap:26px;align-items:center;flex-wrap:wrap}
-#card.on{display:flex;animation:pop .3s ease-out}
-@keyframes pop{from{opacity:0;transform:translateY(8px)}}
-#card img{width:84px;height:84px;border-radius:14px;image-rendering:pixelated}
-#card h3{font:700 24px var(--d)}
-.stats{display:flex;gap:30px;flex-wrap:wrap;margin-left:auto}
-.stats div strong{display:block;font:700 22px var(--d)}
-.stats small{color:var(--mut)}
-.join{text-align:center;border-top:1px solid var(--line)}
-.join .ip{margin-top:10px}
-footer{padding:36px 0;color:var(--mut);font-size:14px;text-align:center;border-top:1px solid var(--line)}
-@media(max-width:820px){nav ul{display:none}.hero .wrap{grid-template-columns:1fr}#arena{max-width:340px;order:-1}
-.mode{grid-template-columns:72px 1fr}.mode svg{width:64px;height:64px}.mode .n{grid-column:2;text-align:left}
-.search{margin-left:0;width:100%}th:nth-child(n+4),td:nth-child(n+4){display:none}}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
-</style>
-</head>
-<body>
-<nav><div class="wrap"><a class="logo" href="#top">LUMARIS</a>
-<ul><li><a href="#modes">Modes</a></li><li><a href="#leaderboards">Leaderboards</a></li><li><a href="#join">Join</a></li></ul></div></nav>
-
-<header class="hero" id="top"><div class="wrap">
-<div>
-<h1>Hold the center.<span>Win the box.</span></h1>
-<p class="lead">Fast team fights over a nine-block center, hide-and-seek where you are a block, and a parkour you can race for the top time.</p>
-<div class="ip" id="copy" role="button" tabindex="0" aria-label="Copy server address"><code id="ipText"></code><b id="copyBtn">Copy IP</b></div>
-<div class="live" aria-live="polite">
-<div><strong id="on">0</strong><small><span class="dot"></span>online now</small></div>
-<div><strong id="hub">0</strong><small>in the hub</small></div>
-<div><strong id="play">0</strong><small>in games</small></div>
-</div></div>
-<canvas id="arena" width="520" height="520" role="img" aria-label="Animated Battle Box center: two teams capturing nine blocks"></canvas>
-</div></header>
-
-<section id="modes"><div class="wrap">
-<h2>Three ways to play</h2><p class="sub">Queue solo or with a party. Every mode has its own ranking below.</p>
-<div class="mode"><svg viewBox="0 0 96 96" aria-hidden="true"><g id="g9"></g></svg>
-<div><h3>Battle Box</h3><p>Two teams, one nine-block center. Pick a kit, capture every block, and score before the round clock runs out. First team to the target score wins.</p></div>
-<div class="n"><span id="m-bb">0</span><small>playing</small></div></div>
-<div class="mode"><svg viewBox="0 0 96 96" aria-hidden="true"><rect x="22" y="22" width="52" height="52" rx="8" fill="none" stroke="#b388ff" stroke-width="3" stroke-dasharray="7 6"/><rect x="34" y="34" width="28" height="28" rx="5" fill="#b388ff"/></svg>
-<div><h3>Prop Hunt</h3><p>Hide as any block in the map while hunters search. Stay still, squeeze into tight gaps, and outlast the clock.</p></div>
-<div class="n"><span id="m-ph">0</span><small>playing</small></div></div>
-<div class="mode"><svg viewBox="0 0 96 96" aria-hidden="true"><path d="M14 74h22V54h20V34h26" fill="none" stroke="#5ee7ff" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/></svg>
-<div><h3>Hub Parkour</h3><p>A timed run right in the hub. Your best time is saved and ranked against everyone on the server.</p></div>
-<div class="n"><span id="m-pk">-</span><small>best time</small></div></div>
-</div></section>
-
-<section id="leaderboards" style="background:linear-gradient(#0b1020,var(--void))"><div class="wrap">
-<h2>Leaderboards</h2><p class="sub">Updated every minute from the live server. Click a player for their full stats.</p>
-<div class="tabs" role="tablist" id="tabs">
-<button role="tab" data-t="battlebox" aria-selected="true">Battle Box</button>
-<button role="tab" data-t="prophunt" aria-selected="false">Prop Hunt</button>
-<button role="tab" data-t="parkour" aria-selected="false">Parkour</button>
-<input class="search" id="q" type="search" placeholder="Find a player" aria-label="Find a player">
-</div>
-<div class="board"><table><thead id="th"></thead><tbody id="tb"></tbody></table><div class="empty" id="empty" hidden>No players match that name.</div></div>
-<div class="pill" id="pill"></div>
-<div id="card"><img id="cImg" alt=""><div><h3 id="cName"></h3><small id="cSub" style="color:var(--mut)"></small></div><div class="stats" id="cStats"></div></div>
-</div></section>
-
-<section class="join" id="join"><div class="wrap">
-<h2>Ready when you are</h2><p class="sub" style="margin-inline:auto">Add the server in Minecraft Java 1.21.11 and you land in the hub. Use the compass to pick a mode.</p>
-<div class="ip" id="copy2" role="button" tabindex="0"><code class="ipc"></code><b>Copy IP</b></div>
-</div></section>
+.tb{background:#ffffff0b;border:1px solid var(--ln);border-radius:10px;padding:9px 18px;cursor:pointer;color:var(--m);transition:.15s}
+.tb:hover{color:var(--t)}.tb[aria-selected=true]{color:#06101a;background:linear-gradient(90deg,var(--c),var(--p));border-color:transparent;font-weight:700}
+.pod{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:14px;align-items:end;margin-bottom:18px}
+.pd{padding:18px;text-align:center;cursor:pointer;transition:.2s}.pd:hover{transform:translateY(-6px);border-color:var(--c)}
+.pd img{width:64px;height:64px;border-radius:14px;margin-bottom:8px}.pd .k{font:700 12px var(--d);color:var(--y)}.pd strong{display:block}.pd small{color:var(--c);font-weight:700}
+.pd.f{padding-top:28px;border-color:#ffd47966;box-shadow:0 0 40px #ffd47922}
+table{width:100%;border-collapse:collapse}th{font-weight:500;color:var(--m);font-size:13px;text-align:left;padding:14px 18px;border-bottom:1px solid var(--ln)}
+td{padding:11px 18px;border-bottom:1px solid #ffffff0a}tr:last-child td{border:0}tbody tr{cursor:pointer;transition:.15s}tbody tr:hover{background:#ffffff0c}
+.rk{width:50px;font:700 14px var(--d);color:var(--m)}.pl{display:flex;align-items:center;gap:12px;font-weight:500}.pl img{width:30px;height:30px;border-radius:7px}
+.nm{text-align:right;font-variant-numeric:tabular-nums}.bar{height:4px;border-radius:2px;background:#ffffff14;margin:5px 0 0 auto;width:80px}.bar i{display:block;height:100%;border-radius:2px;background:linear-gradient(90deg,var(--c),var(--p))}
+.note{font-size:12px;color:var(--m);margin-top:12px}.note.warn{color:var(--r)}
+.view{display:none}body[data-v=home] #home,body[data-v=mode] #mode,body[data-v=players] #players,body[data-v=prof] #prof{display:block}
+#mode,#players,#prof{padding:100px 0 60px;min-height:100vh}
+body{background:radial-gradient(ellipse at 30% 0,#b388ff22,transparent 55%) fixed,var(--bg)}
+nav a.l.on{color:var(--t)}nav a{white-space:nowrap}.mc{cursor:pointer}
+.big{width:100%;background:#ffffff0d;border:1px solid var(--ln);border-radius:14px;padding:14px 18px;margin-bottom:22px;font-size:18px}
+.gm{display:flex;gap:30px;align-items:center;padding:24px;margin-bottom:28px;flex-wrap:wrap}
+.tg{display:grid;gap:10px;flex:none}.bbg{grid-template-columns:repeat(3,72px)}.phg{grid-template-columns:repeat(4,62px)}
+.tg button{aspect-ratio:1;border-radius:14px;background:#1e2740;border:1px solid var(--ln);cursor:pointer;transition:.2s}
+.bbg button:hover{background:#5ee7ff33;border-color:var(--c);box-shadow:0 0 26px #5ee7ff77;transform:scale(1.07)}
+.phg button:hover{background:#b388ff33;border-color:var(--p);box-shadow:0 0 26px #b388ff77;transform:scale(1.07)}
+.tg .c1{background:var(--c);border-color:var(--c);box-shadow:0 0 30px #5ee7ffaa}.tg .c2{background:var(--p);border-color:var(--p);box-shadow:0 0 30px #b388ffaa}
+.tg .miss{opacity:.25;background:#ff7b9333;pointer-events:none}
+#g9 rect{transition:.2s}#g9 rect:hover{fill:#5ee7ff;filter:drop-shadow(0 0 6px #5ee7ff)}.mc svg rect[fill="#b388ff"]{transition:.2s}.mc svg rect[fill="#b388ff"]:hover{filter:drop-shadow(0 0 10px #b388ff)}
+.pc{display:flex;gap:12px;align-items:center;padding:14px;cursor:pointer;transition:.15s}.pc:hover{border-color:var(--c);transform:translateY(-3px)}.pc img{width:40px;height:40px;border-radius:9px}
+.back{display:inline-block;margin-bottom:18px;color:var(--m);cursor:pointer}.back:hover{color:var(--c)}
+.ph{display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center;padding:26px;position:relative;overflow:hidden}
+.ph:before{content:"";position:absolute;inset:-40% 40% auto -10%;height:220px;background:radial-gradient(#b388ff33,transparent 70%)}
+.sk{width:150px;height:220px;object-fit:contain;filter:drop-shadow(0 12px 24px #0008);transition:transform .2s;position:relative}
+.ph h2{margin:0;font-size:clamp(24px,3.4vw,38px);position:relative}.badges{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 14px;position:relative}
+.bd{font-size:12px;font-weight:700;border-radius:99px;padding:3px 11px;border:1px solid var(--ln);background:#ffffff0d}.bd.on{color:var(--g);border-color:#5dffa055}.bd.vip{color:var(--y);border-color:#ffd47966}
+.xp{height:10px;border-radius:6px;background:#ffffff14;overflow:hidden;position:relative;max-width:420px}.xp i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--c),var(--p));transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
+.xl{font-size:13px;color:var(--m);margin-top:6px;position:relative}
+.ring{position:relative;width:130px;height:130px;flex:none}.ring svg{transform:rotate(-90deg)}.ring b{position:absolute;inset:0;display:grid;place-items:center;font:700 34px var(--d)}.ring small{position:absolute;bottom:26px;left:0;right:0;text-align:center;color:var(--m);font-size:11px}
+.cur{display:flex;gap:18px;margin-top:10px;position:relative}.cur span{font-weight:700}.cur small{color:var(--m);font-weight:400}
+.pt{margin:22px 0 16px}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px}
+.st{padding:18px;transition:.2s}.st:hover{transform:translateY(-3px);border-color:var(--c)}.st small{color:var(--m);font-size:13px}.st strong{display:block;font:700 26px var(--d);margin:2px 0}.st em{font-style:normal;font-size:12px;color:var(--m)}
+.two{display:grid;grid-template-columns:260px 1fr;gap:14px;margin-top:14px}.dn{padding:22px;text-align:center}.dn svg{width:170px;height:170px;transform:rotate(-90deg)}.dn div{margin-top:8px;font-size:13px;color:var(--m)}
+.ml{padding:8px}.mr{display:flex;align-items:center;gap:14px;padding:10px 14px;border-radius:12px}.mr:hover{background:#ffffff0a}
+.pill{font:700 12px var(--d);border-radius:8px;padding:4px 10px;min-width:54px;text-align:center}.pill.w{background:#5dffa01f;color:var(--g)}.pill.l{background:#ff7b931f;color:var(--r)}
+.mr span{color:var(--m);font-size:13px}.mr .e{margin-left:auto;font-weight:700}.fm{display:flex;gap:5px;margin-top:14px}.fm i{width:14px;height:14px;border-radius:4px}
+.cos{padding:16px;display:flex;gap:12px;align-items:center;opacity:.35;transition:.2s}.cos.own{opacity:1;border-color:#b388ff66}.cos.eq{box-shadow:0 0 28px #b388ff40}.cos b{display:block}.cos small{color:var(--m)}.cos .ic{font-size:26px}
+.empty{padding:40px;text-align:center;color:var(--m)}
+footer{padding:34px 0;color:var(--m);font-size:14px;text-align:center;border-top:1px solid var(--ln)}
+.rv{opacity:0;transform:translateY(20px);transition:.7s}.rv.in{opacity:1;transform:none}
+@media(max-width:860px){nav .w{gap:16px;overflow-x:auto}.sw{display:none}.hero .w,.modes,.two{grid-template-columns:1fr}.ph{grid-template-columns:1fr;text-align:center}.ph .sk{margin:auto}.badges,.cur{justify-content:center}.xp{margin:auto}.ring{margin:auto}.pod{grid-template-columns:1fr}.pd.f{order:-1!important}th:nth-child(n+5),td:nth-child(n+5){display:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style></head><body>
+<canvas id="bg"></canvas>
+<nav><div class="w"><a class="logo" href="#/">LUMARIS</a><a class="l" href="#/">Home</a><a class="l" href="#/battlebox">Battle Box</a><a class="l" href="#/prophunt">Prop Hunt</a><a class="l" href="#/players">Profiles</a>
+<div class="sw"><input id="q" type="search" placeholder="Search a player..." aria-label="Search a player" autocomplete="off"><div class="sug" id="sug"></div></div></div></nav>
+<main id="home" class="view">
+<header class="hero"><div class="w"><div>
+<h1>Play together.<span class="gr" style="display:block">Climb the boards.</span></h1>
+<p class="lead">Lumaris is a Minecraft server with ranked minigames, a hub parkour and player levels. Check the leaderboards and look up any profile.</p>
+<div class="ip" id="copy" role="button" tabindex="0" aria-label="Copy server address"><code id="ipT"></code><b>Copy IP</b></div>
+<div class="live" aria-live="polite"><div><strong id="on">0</strong><small><span class="dot"></span>online</small></div><div><strong id="hub">0</strong><small>in the hub</small></div><div><strong id="play">0</strong><small>in games</small></div><div><strong id="tot">0</strong><small>players</small></div></div><p class="note" style="margin-top:22px">Tip: click anywhere on the background.</p>
+</div><div class="card feed"><h3>TOP LEVELS</h3><div id="feed"></div></div></div></header>
+<section id="about" style="padding:10px 0"><div class="w"><div class="modes"><div class="card st rv"><small>Version</small><strong>Java 1.21.11</strong><em>Join and land in the hub</em></div><div class="card st rv"><small>Progression</small><strong>Levels &amp; Elo</strong><em>Rank up in every mode</em></div><div class="card st rv"><small>Extras</small><strong>Cosmetics</strong><em>Unlock with levels or VIP</em></div></div></div></section>
+<section id="modes"><div class="w"><h2 class="rv">Three ways to play</h2><p class="sub rv">Every mode has its own ranking and its own section on your profile. Click a card to open its page.</p>
+<div class="modes">
+<div class="card mc rv" data-go="#/battlebox" tabindex="0"><svg viewBox="0 0 64 64"><g id="g9"></g></svg><h3>Battle Box</h3><p>Two teams, nine center blocks. Pick a kit, capture them all and climb the Elo ladder.</p><div class="n"><span id="m-bb">0</span> playing</div></div>
+<div class="card mc rv" data-go="#/prophunt" tabindex="0"><svg viewBox="0 0 64 64"><rect x="10" y="10" width="44" height="44" rx="9" fill="none" stroke="#b388ff" stroke-width="3" stroke-dasharray="6 5"/><rect x="22" y="22" width="20" height="20" rx="4" fill="#b388ff"/></svg><h3>Prop Hunt</h3><p>Become the map. Hide, paint, pose and outlast the hunters for points and podiums.</p><div class="n"><span id="m-ph">0</span> playing</div></div>
+<div class="card mc rv" data-go="#/parkour" tabindex="0"><svg viewBox="0 0 64 64"><path d="M8 50h15V36h14V22h19" fill="none" stroke="#5ee7ff" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/></svg><h3>Hub Parkour</h3><p>A timed run in the hub. Your best time is saved and ranked server-wide.</p><div class="n">Best: <span id="m-pk">-</span></div></div>
+</div></div></section>
+<section id="leaderboards"><div class="w"><h2 class="rv">Top players</h2><p class="sub rv">Synced from the game database. Switch boards and click a player to open their profile.</p><div id="hb"></div><div class="note" id="note"></div></div></section>
+<section id="parkour"><div class="w"><h2 class="rv">Hub Parkour</h2><p class="sub rv">A timed run in the hub. Your best time is saved and ranked server-wide.</p><div id="pkb"></div></div></section>
+<section id="join" style="text-align:center"><div class="w"><h2 class="rv">Ready when you are</h2><p class="sub rv" style="margin-inline:auto">Add the server in Minecraft Java 1.21.11 and you land in the hub.</p><div class="ip" id="copy2" role="button" tabindex="0"><code class="ipc"></code><b>Copy IP</b></div></div></section>
+</main>
+<div id="mode" class="view"></div>
+<div id="players" class="view"><div class="w"><h2>Player profiles</h2><p class="sub">Search any player, or pick one below to open their full stats.</p><input id="q2" class="big" type="search" placeholder="Type a name and press Enter" autocomplete="off" aria-label="Search players"><div class="grid" id="pg"></div></div></div>
+<div id="prof" class="view"><div class="w"><a class="back" href="#/players">&larr; Back to profiles</a><div id="pbody"></div></div></div>
 <footer>Lumaris is not affiliated with Mojang or Microsoft.</footer>
 
 <script>
-// ---- SETTINGS -------------------------------------------------------------
+/* ---- SETTINGS: point DATA_URL at the file the plugin pushes (see README) ---- */
 const SERVER_IP='lumaris.minecraft.co.com';
-const API='/api/stats';          // your Cloudflare Worker / Pages Function (see JSON shape below)
-const REFRESH_MS=30000;
-/* Expected JSON: {online,hub,byMode:{battlebox,prophunt},updated,
-   leaderboards:{battlebox:[{name,uuid,elo,wins,kills,deaths,level}],
-                 prophunt:[{name,uuid,wins,kills,level}], parkour:[{name,uuid,ms}]}} */
-// ---------------------------------------------------------------------------
-const $=s=>document.querySelector(s);
-const demo=(()=>{const n=['Nyx','Vale','Orion','Kestrel','Juniper','Halcyon','Mako','Sable','Ember','Quill'];
-const r=(i,a,b)=>a+((i*7919)%(b-a));
-return{online:14,hub:6,byMode:{battlebox:5,prophunt:3},updated:Date.now(),demo:true,leaderboards:{
-battlebox:n.map((x,i)=>({name:x,elo:1900-i*63,wins:r(i,30,90)-i*3,kills:r(i,300,900)-i*20,deaths:r(i,150,500),level:60-i*4})),
-prophunt:n.map((x,i)=>({name:x,wins:r(i,20,70)-i*2,kills:r(i,100,400)-i*9,level:58-i*4})),
-parkour:n.map((x,i)=>({name:x,ms:41200+i*2380}))}}})();
-let data=demo,tab='battlebox';
-const cols={battlebox:[['Elo','elo'],['Wins','wins'],['Kills','kills'],['Level','level']],
-prophunt:[['Wins','wins'],['Kills','kills'],['Level','level']],parkour:[['Best time','ms']]};
-const fmt=(k,v)=>k==='ms'?(v/1000).toFixed(2)+'s':(v??0).toLocaleString();
-const head=p=>`https://minotar.net/helm/${encodeURIComponent(p.name)}/64.png`;
-function countUp(el,to){const from=+el.textContent||0,t0=performance.now();
-(function f(t){const k=Math.min(1,(t-t0)/700);el.textContent=Math.round(from+(to-from)*k);if(k<1)requestAnimationFrame(f)})(t0)}
-function renderLive(){countUp($('#on'),data.online);countUp($('#hub'),data.hub);countUp($('#play'),Math.max(0,data.online-data.hub));
-$('#m-bb').textContent=data.byMode.battlebox;$('#m-ph').textContent=data.byMode.prophunt;
-const pk=data.leaderboards.parkour[0];$('#m-pk').textContent=pk?(pk.ms/1000).toFixed(2)+'s':'-';
-const p=$('#pill');p.className='pill'+(data.demo?' warn':'');
-p.textContent=data.demo?'Showing sample data - the live feed is not connected yet.':'Updated '+new Date(data.updated).toLocaleTimeString();}
-function renderBoard(){const list=data.leaderboards[tab]||[],c=cols[tab],q=$('#q').value.trim().toLowerCase();
-$('#th').innerHTML='<tr><th>#</th><th>Player</th>'+c.map(x=>`<th class="num">${x[0]}</th>`).join('')+'</tr>';
-const max=Math.max(1,...list.map(p=>p[c[0][1]]||0));
-const rows=list.map((p,i)=>({p,i})).filter(o=>o.p.name.toLowerCase().includes(q));
-$('#tb').innerHTML=rows.map(({p,i})=>`<tr class="top${i<3?i+1:''}" data-i="${i}"><td class="rk">${i+1}</td>
-<td><div class="pl"><img src="${head(p)}" alt="" loading="lazy">${p.name}</div></td>`+
-c.map((x,j)=>`<td class="num">${fmt(x[1],p[x[1]])}${j===0&&tab!=='parkour'?`<div class="bar"><i style="width:${Math.round((p[x[1]]||0)/max*100)}%"></i></div>`:''}</td>`).join('')+'</tr>').join('');
-$('#empty').hidden=rows.length>0;}
-function showCard(p){const s=[];const L=data.leaderboards;
-const bb=L.battlebox.find(x=>x.name===p.name),ph=L.prophunt.find(x=>x.name===p.name),pk=L.parkour.find(x=>x.name===p.name);
-const lvl=(bb||ph||{}).level;if(lvl)s.push(['Level',lvl]);
-if(bb){s.push(['Battle Box Elo',bb.elo.toLocaleString()]);s.push(['K/D',(bb.kills/Math.max(1,bb.deaths)).toFixed(2)])}
-if(ph)s.push(['Prop Hunt wins',ph.wins]);if(pk)s.push(['Parkour',(pk.ms/1000).toFixed(2)+'s']);
-$('#cImg').src=head(p).replace('/64.png','/128.png');$('#cName').textContent=p.name;
-$('#cSub').textContent='Player profile';
-$('#cStats').innerHTML=s.map(x=>`<div><strong>${x[1]}</strong><small>${x[0]}</small></div>`).join('');
-$('#card').classList.add('on');$('#card').scrollIntoView({behavior:'smooth',block:'nearest'})}
-$('#tb').onclick=e=>{const tr=e.target.closest('tr');if(tr)showCard(data.leaderboards[tab][tr.dataset.i])};
-$('#tabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;tab=b.dataset.t;
-document.querySelectorAll('#tabs button').forEach(x=>x.setAttribute('aria-selected',x===b));renderBoard()};
-$('#q').oninput=renderBoard;
-async function load(){try{const r=await fetch(API,{cache:'no-store'});if(!r.ok)throw 0;data=await r.json()}catch(e){data=demo}
-renderLive();renderBoard()}
-load();setInterval(load,REFRESH_MS);
-// copy IP
-$('#ipText').textContent=SERVER_IP;document.querySelectorAll('.ipc').forEach(e=>e.textContent=SERVER_IP);
-function copy(btn){navigator.clipboard.writeText(SERVER_IP).then(()=>{const b=btn.querySelector('b'),o=b.textContent;b.textContent='Copied!';setTimeout(()=>b.textContent=o,1600)})}
-['#copy','#copy2'].forEach(s=>{const e=$(s);e.onclick=()=>copy(e);e.onkeydown=k=>{if(k.key==='Enter'||k.key===' '){k.preventDefault();copy(e)}}});
-// small nine-block icon
-$('#g9').innerHTML=[...Array(9)].map((_,i)=>`<rect x="${8+(i%3)*30}" y="${8+Math.floor(i/3)*30}" width="26" height="26" rx="5" fill="${[0,2,4,7].includes(i)?'#5ee7ff':[1,5,8].includes(i)?'#b388ff':'#1e2740'}"/>`).join('');
-// hero: the nine-block center being captured
-const cv=$('#arena'),cx=cv.getContext('2d'),reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
-const order=[4,0,8,2,6,1,7,3,5],cols2=['#5ee7ff','#b388ff'];let step=0,team=0,t0=performance.now(),own=Array(9).fill(-1),flash=Array(9).fill(0);
-function draw(now){cx.clearRect(0,0,520,520);const s=140,g=18,o=(520-(s*3+g*2))/2;
-if(!reduce&&now-t0>420){t0=now;if(step<9){own[order[step]]=team;flash[order[step]]=1;step++}else if(now-t0>-1&&step===9){step=10;setTimeout(()=>{own.fill(-1);step=0;team=1-team},1500)}}
-for(let i=0;i<9;i++){const x=o+(i%3)*(s+g),y=o+Math.floor(i/3)*(s+g);flash[i]*=.92;const c=own[i]<0?null:cols2[own[i]];
-cx.save();cx.shadowColor=c||'transparent';cx.shadowBlur=c?26+flash[i]*40:0;cx.fillStyle=c?c+(flash[i]>.3?'ff':'cc'):'#131a30';
-cx.beginPath();cx.roundRect(x,y,s,s,16);cx.fill();cx.restore();
-cx.strokeStyle=c?'#ffffff33':'#26305a';cx.lineWidth=2;cx.beginPath();cx.roundRect(x+1,y+1,s-2,s-2,15);cx.stroke()}
-if(!reduce)requestAnimationFrame(draw)}
-if(reduce){own=[0,1,0,1,0,1,0,1,0]}requestAnimationFrame(draw);
-if(!reduce)document.addEventListener('pointermove',e=>{const x=(e.clientX/innerWidth-.5)*10,y=(e.clientY/innerHeight-.5)*-10;cv.style.transform=`perspective(900px) rotateY(${x}deg) rotateX(${y}deg)`});
-</script>
-</body>
-</html>
+const DATA_URL='https://raw.githubusercontent.com/OWNER/REPO/stats-data/lumaris.json';
+const REFRESH=60000;
+const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const head=(u,n)=>u?`https://mc-heads.net/avatar/${u}/64`:`https://minotar.net/helm/${encodeURIComponent(n)}/64.png`;
+const nf=n=>(n??0).toLocaleString(),ms=v=>(v/1000).toFixed(2)+'s';
+const ago=t=>{if(!t)return'never';const s=(Date.now()-t)/1000;return s<90?'just now':s<3600?Math.round(s/60)+'m ago':s<86400?Math.round(s/3600)+'h ago':Math.round(s/86400)+'d ago'};
+/* demo data (same shape as the plugin's JSON) so the page still looks alive before the feed is connected */
+const demo=(()=>{const N=['Nyx','Vale','Orion','Kestrel','Juniper','Halcyon','Mako','Sable','Ember','Quill'],P={},LB={battlebox:[],prophunt:[],parkour:[],level:[]};
+N.forEach((n,i)=>{const u='demo'+i,xp=90000-i*7000,lv=Math.floor(Math.log(1+xp*.1/100)/Math.log(1.1)),w=70-i*5,l=30+i*3;
+P[u]={name:n,uuid:u,level:lv,xp,xpInto:(i*37)%90,xpNeeded:100,sparks:800-i*50,lumens:60-i*4,vip:i<3,lastSeen:Date.now()-i*3e6,online:i<3,cosmetics:['firework_burst','frost_nova'].slice(0,1+i%2),equipped:'firework_burst',
+modes:{BATTLEBOX:{kills:900-i*60,deaths:500,wins:w,losses:l,elo:1900-i*63,rank:i+1,ranked:10,games:w+l},PROPHUNT:{kills:200,deaths:90,wins:40-i*3,losses:20,elo:1500-i*40,rank:i+1,ranked:10,games:60}},
+prophunt:{propGames:50,hunterGames:12,totalPoints:5200-i*300,bestPoints:180,firstPlaces:12-i,podiums:22-i,survived:30},parkour:{ms:41200+i*2380,rank:i+1,total:10,at:0},
+matches:{BATTLEBOX:[...Array(8)].map((_,j)=>({k:(i+j)%9,d:j%5,w:(i+j)%3>0,e:((i+j)%3>0?1:-1)*(8+j),t:Date.now()-j*9e6,p:0,pl:0,r:null}))}};
+LB.battlebox.push({name:n,uuid:u,elo:1900-i*63,wins:w,losses:l,kills:900-i*60,deaths:500,level:lv});LB.prophunt.push({name:n,uuid:u,wins:40-i*3,losses:20,kills:200,elo:1500,points:5200-i*300,firsts:12-i,level:lv});
+LB.parkour.push({name:n,uuid:u,ms:41200+i*2380,level:lv});LB.level.push({name:n,uuid:u,level:lv,xp});});
+return{demo:true,updated:Date.now(),online:14,hub:6,byMode:{battlebox:5,prophunt:3},totalPlayers:10,onlinePlayers:['Nyx','Vale','Orion'],leaderboards:LB,players:P,cosmeticCatalog:[{id:'firework_burst',name:'Firework Burst',desc:'A burst of fireworks.',unlock:'Level 10',level:10},{id:'frost_nova',name:'Frost Nova',desc:'Icy explosion.',unlock:'Level 20',level:20},{id:'golden_crown',name:'Golden Crown',desc:'VIP only.',unlock:'VIP',level:0}]}})();
+let D=demo,tab='level';
+const T={battlebox:{l:'Battle Box',c:[['Elo','elo'],['Wins','wins'],['Kills','kills'],['Level','level']]},prophunt:{l:'Prop Hunt',c:[['Wins','wins'],['Points','points'],['#1 finishes','firsts'],['Level','level']]},parkour:{l:'Parkour',c:[['Best time','ms'],['Level','level']]},level:{l:'Level',c:[['Level','level'],['Total XP','xp']]}};
+const fmt=(k,v)=>k==='ms'?ms(v):nf(v);
+function cu(el,to){const f=+el.textContent.replace(/,/g,'')||0,t0=performance.now();(function s(t){const k=Math.min(1,(t-t0)/800);el.textContent=nf(Math.round(f+(to-f)*k));if(k<1)requestAnimationFrame(s)})(t0)}
+function byName(n){n=n.toLowerCase();return Object.values(D.players).find(p=>p.name.toLowerCase()===n)}
+function uuidOf(r){return r.uuid}
+function live(){cu($('#on'),D.online);cu($('#hub'),D.hub);cu($('#play'),Math.max(0,D.online-D.hub));cu($('#tot'),D.totalPlayers||0);
+$('#m-bb').textContent=D.byMode.battlebox;$('#m-ph').textContent=D.byMode.prophunt;const pk=D.leaderboards.parkour[0];$('#m-pk').textContent=pk?ms(pk.ms):'-';
+$('#feed').innerHTML=(D.leaderboards.level.slice(0,5)).map((p,i)=>`<div class="fr" data-n="${esc(p.name)}"><b style="color:var(--m);width:16px">${i+1}</b><img src="${head(p.uuid,p.name)}" alt=""><b>${esc(p.name)}</b><span>Lv ${p.level}</span></div>`).join('')||'<div class="empty">No players yet</div>';
+const n=$('#note');n.className='note'+(D.demo?' warn':'');n.textContent=D.demo?'Showing sample data - the live feed is not connected yet (set DATA_URL).':'Synced '+ago(D.updated)}
+function board(root,k,tabs,n){const L=(D.leaderboards[k]||[]).slice(0,n),c=T[k].c,mx=Math.max(1,...L.map(p=>p[c[0][1]]||0));
+root.innerHTML=(tabs?`<div class="tabs" role="tablist">${Object.entries(T).filter(([a])=>a!=='parkour').map(([a,v])=>`<button class="tb" role="tab" data-t="${a}" aria-selected="${a===k}">${v.l}</button>`).join('')}</div>`:'')
++`<div class="pod">${L.slice(0,3).map((p,i)=>`<div class="card pd${i?'':' f'}" data-n="${esc(p.name)}" style="order:${[1,0,2][i]}"><img src="${head(p.uuid,p.name)}" alt=""><div class="k">#${i+1}</div><strong>${esc(p.name)}</strong><small>${fmt(c[0][1],p[c[0][1]])}</small></div>`).join('')}</div>`
++`<div class="card" style="overflow:hidden"><table><thead><tr><th>#</th><th>Player</th>${c.map(x=>`<th class="nm">${x[0]}</th>`).join('')}</tr></thead><tbody>${L.length?L.map((p,i)=>`<tr data-n="${esc(p.name)}"><td class="rk">${i+1}</td><td><div class="pl"><img src="${head(p.uuid,p.name)}" alt="" loading="lazy">${esc(p.name)}</div></td>`+c.map((x,j)=>`<td class="nm">${fmt(x[1],p[x[1]])}${j===0&&k!=='parkour'?`<div class="bar"><i style="width:${Math.round((p[x[1]]||0)/mx*100)}%"></i></div>`:''}</td>`).join('')+'</tr>').join(''):'<tr><td colspan=9 class="empty">No ranked players yet</td></tr>'}</tbody></table></div>`}
+/* ---- profile ---- */
+const ST=(l,v,s='')=>`<div class="card st"><small>${l}</small><strong>${v}</strong><em>${s}</em></div>`;
+function donut(w,l){const t=w+l||1,C=2*Math.PI*62,a=C*w/t;return`<svg viewBox="0 0 150 150"><circle cx="75" cy="75" r="62" fill="none" stroke="#ff7b9344" stroke-width="16"/><circle cx="75" cy="75" r="62" fill="none" stroke="#5dffa0" stroke-width="16" stroke-linecap="round" stroke-dasharray="${a} ${C}"/></svg>`}
+function matches(list){if(!list||!list.length)return'<div class="empty">No matches recorded yet</div>';
+return`<div class="ml">${list.map(m=>`<div class="mr"><span class="pill ${m.w?'w':'l'}">${m.w?'WIN':'LOSS'}</span><b>${m.k} kills</b><span>${m.d} deaths${m.r?' &middot; '+esc(m.r):''}${m.pl?' &middot; #'+m.pl:''}${m.p?' &middot; '+m.p+' pts':''}</span><span style="margin-left:auto">${ago(m.t)}</span>${m.e?`<b class="e" style="color:var(${m.e>0?'--g':'--r'})">${m.e>0?'+':''}${m.e}</b>`:''}</div>`).join('')}</div><div class="fm">${list.slice(0,10).map(m=>`<i style="background:var(${m.w?'--g':'--r'})"></i>`).join('')}</div>`}
+function modePanel(p,k){const m=p.modes[k];if(!m||!m.games)return'<div class="card empty">No games played in this mode yet.</div>';
+const kd=(m.kills/Math.max(1,m.deaths)).toFixed(2),wr=Math.round(m.wins*100/Math.max(1,m.games));
+let x=`<div class="grid">${ST('Elo',nf(m.elo),m.rank?`Rank #${m.rank} of ${m.ranked}`:'Unranked')}${ST('Wins',nf(m.wins),wr+'% win rate')}${ST('Losses',nf(m.losses))}${ST('Kills',nf(m.kills))}${ST('Deaths',nf(m.deaths))}${ST('K/D',kd)}</div>`;
+if(k==='PROPHUNT'&&p.prophunt){const h=p.prophunt;x+=`<div class="grid pt">${ST('Prop games',h.propGames,h.hunterGames+' as hunter')}${ST('Total points',nf(h.totalPoints),'Avg '+(h.propGames?Math.round(h.totalPoints/h.propGames):0))}${ST('Best game',h.bestPoints+' pts')}${ST('#1 finishes',h.firstPlaces,h.podiums+' podiums')}${ST('Survived',h.survived,(h.propGames?Math.round(h.survived*100/h.propGames):0)+'% of prop games')}</div>`}
+return x+`<div class="two"><div class="card dn">${donut(m.wins,m.losses)}<div>${m.wins}W &middot; ${m.losses}L</div></div><div class="card">${matches(p.matches[k])}</div></div>`}
+function profile(name){const p=byName(name);if(!p){$('#pbody').innerHTML=`<div class="card empty">No profile found for "${esc(name)}".</div>`;return}
+const pct=Math.min(100,Math.round(p.xpInto*100/Math.max(1,p.xpNeeded))),C=2*Math.PI*56,cat=D.cosmeticCatalog||[];
+$('#pbody').innerHTML=`<div class="card ph"><img class="sk" id="sk" src="https://mc-heads.net/body/${p.uuid}/right" onerror="this.src='https://minotar.net/armor/body/${encodeURIComponent(p.name)}/200.png'" alt="${esc(p.name)} skin">
+<div><h2>${esc(p.name)}</h2><div class="badges">${p.online?'<span class="bd on">&#9679; Online</span>':`<span class="bd">Seen ${ago(p.lastSeen)}</span>`}${p.vip?'<span class="bd vip">&#9733; VIP</span>':''}${p.modes.BATTLEBOX?.rank?`<span class="bd">Battle Box #${p.modes.BATTLEBOX.rank}</span>`:''}${p.parkour?.rank?`<span class="bd">Parkour #${p.parkour.rank}</span>`:''}</div>
+<div class="xp"><i id="xpb"></i></div><div class="xl">${nf(p.xpInto)} / ${nf(p.xpNeeded)} XP to level ${p.level+1} &middot; ${nf(p.xp)} total</div>
+<div class="cur"><span>${nf(p.sparks)} <small>Sparks</small></span><span>${nf(p.lumens)} <small>Lumens</small></span></div></div>
+<div class="ring"><svg width="130" height="130" viewBox="0 0 130 130"><circle cx="65" cy="65" r="56" fill="none" stroke="#ffffff14" stroke-width="9"/><circle id="rg" cx="65" cy="65" r="56" fill="none" stroke="url(#gg)" stroke-width="9" stroke-linecap="round" stroke-dasharray="0 ${C}"/><defs><linearGradient id="gg"><stop offset="0" stop-color="#5ee7ff"/><stop offset="1" stop-color="#b388ff"/></linearGradient></defs></svg><b>${p.level}</b><small>LEVEL</small></div></div>
+<div class="tabs pt" id="ptabs">${[['ov','Overview'],['BATTLEBOX','Battle Box'],['PROPHUNT','Prop Hunt'],['pk','Parkour'],['cs','Cosmetics']].map((t,i)=>`<button class="tb" data-p="${t[0]}" aria-selected="${!i}">${t[1]}</button>`).join('')}</div><div id="pp"></div>`;
+requestAnimationFrame(()=>{setTimeout(()=>{$('#xpb').style.width=pct+'%';$('#rg').style.transition='stroke-dasharray 1.2s';$('#rg').setAttribute('stroke-dasharray',`${C*pct/100} ${C}`)},60)});
+const sk=$('#sk');sk.parentElement.onmousemove=e=>{const r=sk.getBoundingClientRect();sk.style.transform=`perspective(500px) rotateY(${(e.clientX-r.left-r.width/2)/8}deg)`};
+const pk=p.parkour,bb=p.modes.BATTLEBOX,ph=p.modes.PROPHUNT;
+const panels={ov:`<div class="grid">${ST('Level',p.level,nf(p.xp)+' XP')}${ST('Battle Box Elo',bb?nf(bb.elo):'-',bb?.rank?'#'+bb.rank+' of '+bb.ranked:'')}${ST('Prop Hunt wins',ph?ph.wins:0,p.prophunt?nf(p.prophunt.totalPoints)+' pts':'')}${ST('Parkour',pk?ms(pk.ms):'-',pk?'#'+pk.rank+' of '+pk.total:'')}${ST('Total wins',(bb?.wins||0)+(ph?.wins||0))}${ST('Total kills',(bb?.kills||0)+(ph?.kills||0))}</div><div class="card pt ml" style="margin-top:14px">${matches([...(p.matches.BATTLEBOX||[]),...(p.matches.PROPHUNT||[])].sort((a,b)=>b.t-a.t).slice(0,8))}</div>`,
+BATTLEBOX:modePanel(p,'BATTLEBOX'),PROPHUNT:modePanel(p,'PROPHUNT'),
+pk:pk?`<div class="grid">${ST('Best time',ms(pk.ms),'Set '+ago(pk.at))}${ST('Rank','#'+pk.rank,'of '+pk.total+' finishers')}</div>`:'<div class="card empty">No parkour time yet.</div>',
+cs:`<div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(230px,1fr))">${cat.map(c=>`<div class="card cos ${p.cosmetics.includes(c.id)?'own':''} ${p.equipped===c.id?'eq':''}"><span class="ic">&#10024;</span><div><b>${esc(c.name)}</b><small>${p.cosmetics.includes(c.id)?(p.equipped===c.id?'Equipped':'Owned'):'Unlock: '+esc(c.unlock)}</small></div></div>`).join('')||'<div class="empty">No cosmetics</div>'}</div>`};
+const show=k=>{$('#pp').innerHTML=panels[k];$('#pp').classList.remove('rv')};show('ov');
+$('#ptabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;document.querySelectorAll('#ptabs button').forEach(x=>x.setAttribute('aria-selected',x===b));show(b.dataset.p)}}
+/* ---- routing ---- */
+const MI={battlebox:['Battle Box','Two teams fight over nine center blocks. Pick a kit, capture them all and climb the Elo ladder.'],prophunt:['Prop Hunt','Become the map. Hide, pose and outlast the hunters for points and podiums.']};
+let V='home',MK='battlebox',bb=null,ph=null;
+const bbNew=()=>bb={o:Array(9).fill(0),msg:'Click a block to claim it for your team.'};
+function bbDraw(){const el=$('#gm');if(!el||!bb)return;el.innerHTML=`<div class="tg bbg">${bb.o.map((v,i)=>`<button class="${v?'c'+v:''}" data-b="${i}" aria-label="Block ${i+1}"></button>`).join('')}</div><div><h3 style="font:700 18px var(--d)">Claim the box</h3><p class="sub" style="margin:6px 0 12px">${bb.msg}</p><button class="tb" data-r="bb">Reset</button></div>`}
+function bbEnd(s){if(s.o.every(v=>v)){const n=s.o.filter(v=>v==1).length;s.msg=n>4?`You captured ${n} of 9. Your team wins!`:`Rivals captured ${9-n} of 9. Try again.`}}
+const phNew=()=>ph={p:Math.random()*12|0,m:[],l:4,d:0,msg:'A prop is hiding in one of these blocks. You get 4 guesses.'};
+function phDraw(){const el=$('#gm');if(!el||!ph)return;el.innerHTML=`<div class="tg phg">${[...Array(12)].map((_,i)=>`<button class="${ph.m.includes(i)?'miss':ph.d&&i===ph.p?'c2':''}" data-h="${i}" aria-label="Block ${i+1}"></button>`).join('')}</div><div><h3 style="font:700 18px var(--d)">Find the prop</h3><p class="sub" style="margin:6px 0 12px">${ph.msg}</p><button class="tb" data-r="ph">Hide again</button></div>`}
+document.addEventListener('click',e=>{const t=e.target,r=t.closest('[data-r]');
+if(r){r.dataset.r==='bb'?bbNew():phNew();r.dataset.r==='bb'?bbDraw():phDraw();return}
+const b=t.closest('[data-b]');if(b){const s=bb,i=+b.dataset.b;if(s.busy||s.o[i]||s.o.every(v=>v))return;s.o[i]=1;bbEnd(s);
+if(!s.o.every(v=>v)){s.busy=1;s.msg='Rivals are moving...';setTimeout(()=>{const f=s.o.map((v,j)=>v?-1:j).filter(j=>j>=0);s.o[f[Math.random()*f.length|0]]=2;s.busy=0;s.msg='Your turn. Claim another block.';bbEnd(s);bbDraw()},450)}bbDraw();return}
+const h=t.closest('[data-h]');if(h){const i=+h.dataset.h;if(ph.d||ph.m.includes(i))return;
+if(i===ph.p){ph.d=1;ph.msg=`Found it in ${ph.m.length+1} guess${ph.m.length?'es':''}! Hunters win.`}else{ph.m.push(i);ph.l--;if(ph.l<1){ph.d=1;ph.msg='The prop survived! Props win.'}else ph.msg=`Nothing there. ${ph.l} guess${ph.l>1?'es':''} left.`}phDraw()}});
+function modePage(){const i=MI[MK],pk=D.leaderboards.parkour[0],p=MK==='parkour';
+$('#mode').innerHTML=`<div class="w"><h2>${i[0]}</h2><p class="sub">${i[1]}</p><div class="live" style="margin:0 0 28px"><div><strong>${p?(pk?ms(pk.ms):'-'):(D.byMode[MK]||0)}</strong><small>${p?'server record':'playing now'}</small></div><div><strong>${(D.leaderboards[MK]||[]).length}</strong><small>ranked players</small></div></div>${MK==='battlebox'||MK==='prophunt'?'<div class="card gm" id="gm"></div>':''}<div id="mb"></div><div class="note">Click a player to open their profile.</div></div>`;board($('#mb'),MK,0,50);MK==='battlebox'?(bb||bbNew(),bbDraw()):(ph||phNew(),phDraw())}
+function plist(){const v=$('#q2').value.trim().toLowerCase(),r=Object.values(D.players).filter(p=>p.name.toLowerCase().includes(v)).sort((a,b)=>b.level-a.level).slice(0,60);
+$('#pg').innerHTML=r.map(p=>`<div class="card pc" data-n="${esc(p.name)}"><img src="${head(p.uuid,p.name)}" alt=""><div><b>${esc(p.name)}</b><br><small style="color:var(--m)">Level ${p.level}${p.online?' &middot; online':''}</small></div></div>`).join('')||'<div class="empty">No player found</div>'}
+function render(){live();if(V==='home'){board($('#hb'),tab,1,10);board($('#pkb'),'parkour',0,10)}else if(V==='mode')modePage();else if(V==='players')plist()}
+function route(){const h=decodeURIComponent(location.hash.slice(1)),m=h.match(/^\/p\/(.+)/),s=h.replace(/^\/?/,'');
+V=m?'prof':MI[s]?'mode':s==='players'?'players':'home';if(MI[s])MK=s;document.body.dataset.v=V;
+const cur='#/'+(V==='prof'?'players':V==='mode'?MK:V==='home'?'':V);document.querySelectorAll('nav a.l').forEach(a=>a.classList.toggle('on',a.getAttribute('href')===cur));
+if(m)profile(m[1]);else render();
+document.title=(m?m[1]:V==='mode'?MI[MK][0]:V==='players'?'Profiles':'Lumaris - Battle Box, Prop Hunt & Parkour')+(V==='home'?'':' - Lumaris');
+scrollTo(0,0);if(V==='home'&&s)setTimeout(()=>document.getElementById(s)?.scrollIntoView(),30)}
+const go=n=>location.hash='/p/'+encodeURIComponent(n);
+document.addEventListener('click',e=>{const t=e.target.closest('[data-n]');if(t)return go(t.dataset.n);const c=e.target.closest('[data-go]');if(c)return location.hash=c.dataset.go;const b=e.target.closest('#hb button');if(b){tab=b.dataset.t;render()}});
+addEventListener('hashchange',route);
+$('#q2').oninput=plist;$('#q2').onkeydown=e=>{const v=e.target.value.trim();if(e.key==='Enter'&&v)go(byName(v)?.name||v)};
+/* search */
+const q=$('#q'),sg=$('#sug');q.oninput=()=>{const v=q.value.trim().toLowerCase();if(!v){sg.classList.remove('on');return}
+const r=Object.values(D.players).filter(p=>p.name.toLowerCase().includes(v)).slice(0,6);
+sg.innerHTML=r.map(p=>`<button data-n="${esc(p.name)}"><img src="${head(p.uuid,p.name)}" alt="">${esc(p.name)}<small style="margin-left:auto;color:var(--m)">Lv ${p.level}</small></button>`).join('')||'<div class="empty" style="padding:12px">No match</div>';sg.classList.add('on')};
+q.onkeydown=e=>{if(e.key==='Enter'&&q.value.trim()){go(byName(q.value.trim())?.name||q.value.trim());sg.classList.remove('on');q.blur()}};
+document.addEventListener('click',e=>{if(!e.target.closest('.sw'))sg.classList.remove('on')});
+/* data */
+async function load(){try{const r=await fetch(DATA_URL+'?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw 0;D=await r.json()}catch(e){D=demo}
+if(V==='prof')route();else render()}
+load();setInterval(load,REFRESH);route();
+/* misc */
+$('#ipT').textContent=SERVER_IP;document.querySelectorAll('.ipc').forEach(e=>e.textContent=SERVER_IP);
+['#copy','#copy2'].forEach(s=>{const e=$(s),c=()=>navigator.clipboard.writeText(SERVER_IP).then(()=>{const b=e.querySelector('b'),o=b.textContent;b.textContent='Copied!';setTimeout(()=>b.textContent=o,1500)});e.onclick=c;e.onkeydown=k=>{if(k.key==='Enter'||k.key===' '){k.preventDefault();c()}}});
+$('#g9').innerHTML=[...Array(9)].map((_,i)=>`<rect x="${4+(i%3)*19}" y="${4+Math.floor(i/3)*19}" width="16" height="16" rx="3.5" fill="${[0,2,4,7].includes(i)?'#5ee7ff':[1,5,8].includes(i)?'#b388ff':'#1e2740'}"/>`).join('');
+const io=new IntersectionObserver(es=>es.forEach(x=>x.isIntersecting&&x.target.classList.add('in')),{threshold:.15});document.querySelectorAll('.rv').forEach(e=>io.observe(e));
+document.querySelectorAll('.mc').forEach(c=>{c.onmousemove=e=>{const r=c.getBoundingClientRect();c.style.transform=`perspective(700px) rotateY(${(e.clientX-r.left-r.width/2)/r.width*10}deg) rotateX(${-(e.clientY-r.top-r.height/2)/r.height*10}deg)`};c.onmouseleave=()=>c.style.transform=''});
+/* click anywhere: squares appear and glow, then fade */
+const cv=$('#bg'),x=cv.getContext('2d');let W,H,S=[],run=0;
+const rs=()=>{W=cv.width=innerWidth;H=cv.height=innerHeight};rs();addEventListener('resize',rs);
+function tick(t){x.clearRect(0,0,W,H);S=S.filter(s=>t-s.t<s.l);
+for(const s of S){const k=(t-s.t)/s.l;if(k<0)continue;const a=1-k,z=s.s*(1+k*.6);x.save();x.translate(s.x,s.y-k*40);x.rotate(s.r+k*.8);x.shadowColor='rgb('+s.c+')';x.shadowBlur=30*a;x.fillStyle='rgba('+s.c+','+a*.55+')';x.strokeStyle='rgba('+s.c+','+a+')';x.lineWidth=2;x.beginPath();x.roundRect(-z/2,-z/2,z,z,z/5);x.fill();x.stroke();x.restore()}
+if(S.length)requestAnimationFrame(tick);else{run=0;x.clearRect(0,0,W,H)}}
+document.addEventListener('pointerdown',e=>{if(e.target.closest('a,button,input,[data-n],[data-go],.card,.ip,nav,.sug'))return;const t=performance.now();
+for(let i=0;i<4;i++)S.push({x:e.clientX+(i?(Math.random()-.5)*110:0),y:e.clientY+(i?(Math.random()-.5)*110:0),s:16+Math.random()*28,r:Math.random(),t:t+i*80,l:1800,c:Math.random()<.5?'94,231,255':'179,136,255'});
+if(!run){run=1;requestAnimationFrame(tick)}});
+</script></body></html>
