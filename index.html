@@ -2,7 +2,7 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Lumaris - Battle Box, Prop Hunt & Parkour</title>
 <meta name="description" content="Lumaris Minecraft server: leaderboards and player profiles for Battle Box, Prop Hunt and Hub Parkour.">
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Figtree:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=DM+Sans:wght@400;500;700&family=Silkscreen&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#060813;--pn:#0e1325cc;--ln:#ffffff14;--c:#5ee7ff;--p:#b388ff;--t:#e9edfb;--m:#8d97b8;--g:#5dffa0;--r:#ff7b93;--y:#ffd479;--d:'Unbounded',sans-serif;--b:'Figtree',sans-serif}
 *{box-sizing:border-box;margin:0}html{scroll-behavior:smooth}
@@ -88,13 +88,35 @@ footer{padding:34px 0;color:var(--m);font-size:14px;text-align:center;border-top
 .rv{opacity:0;transform:translateY(20px);transition:.7s}.rv.in{opacity:1;transform:none}
 @media(max-width:860px){nav .w{gap:16px;overflow-x:auto}.sw{display:none}.hero .w,.modes,.two{grid-template-columns:1fr}.ph{grid-template-columns:1fr;text-align:center}.ph .sk{margin:auto}.badges,.cur{justify-content:center}.xp{margin:auto}.ring{margin:auto}.pod{grid-template-columns:1fr}.pd.f{order:-1!important}th:nth-child(n+5),td:nth-child(n+5){display:none}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+:root{--bg:#1b1263;--pn:#2b2090;--ln:#0b0630;--c:#4cc9f0;--p:#ff7eb6;--t:#fff8e7;--m:#bdb6ee;--g:#3be8b0;--r:#ff5d73;--y:#ffd23f;--d:'Bricolage Grotesque',sans-serif;--b:'DM Sans',sans-serif;--s:'Silkscreen',monospace}
+body{background:linear-gradient(#ffffff09 1px,transparent 1px) 0 0/40px 40px,linear-gradient(90deg,#ffffff09 1px,transparent 1px) 0 0/40px 40px,var(--bg)}
+h1,h2,h3{font-family:var(--d);font-weight:800}h1{text-shadow:4px 4px 0 var(--ln)}
+.gr{background:none!important;-webkit-text-fill-color:var(--y);color:var(--y);animation:none;text-shadow:5px 5px 0 var(--r)}
+.card{border:3px solid var(--ln);box-shadow:6px 6px 0 var(--ln);backdrop-filter:none;border-radius:18px}
+nav{background:var(--y);border-bottom:4px solid var(--ln);backdrop-filter:none}
+.logo{font:400 22px var(--s);background:none;-webkit-text-fill-color:var(--ln);color:var(--ln)}
+nav a.l{color:var(--ln);font-weight:700;padding:5px 13px;border-radius:99px}nav a.l:hover{background:#0b063022;color:var(--ln)}nav a.l.on{background:var(--ln);color:var(--y)}
+.sw input{background:#fff;color:var(--ln);border:3px solid var(--ln)}.sug{border:3px solid var(--ln)}
+.tb{border:3px solid var(--ln);background:var(--pn);color:var(--t);font-weight:700;box-shadow:3px 3px 0 var(--ln)}.tb:hover{transform:translate(-1px,-1px)}.tb[aria-selected=true]{background:var(--y);color:var(--ln)}
+.ip{border:3px solid var(--ln);box-shadow:5px 5px 0 var(--ln);background:var(--pn)}.ip:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--ln);border-color:var(--ln)}.ip code{color:var(--y)}.ip b{background:var(--y);color:var(--ln)}
+.feed h3,.rk{font:400 13px var(--s)}.pd.f{background:var(--y);color:var(--ln)}.pd.f small,.pd.f .k{color:var(--ln)}
+.mc{color:var(--ln)}.mc p,.mc .n{color:var(--ln)}.mc:hover{border-color:var(--ln)}
+.modes .mc:nth-child(1){background:var(--r)}.modes .mc:nth-child(2){background:var(--g)}.modes .mc:nth-child(3){background:var(--c)}
+.mc svg *[stroke]{stroke:var(--ln)}.mc svg rect[fill="#b388ff"],#g9 rect[fill="#5ee7ff"]{fill:var(--ln)}#g9 rect[fill="#b388ff"]{fill:#fff}.mc svg rect[fill="#1e2740"]{fill:#0b063033}#g9 rect:hover{fill:#fff}
+#about .card{color:var(--ln)}#about small,#about em{color:#0b0630bb}#about .card:nth-child(1){background:var(--y)}#about .card:nth-child(2){background:var(--g)}#about .card:nth-child(3){background:var(--p)}
+body[data-v=arcade] #arcade{display:block}#arcade{padding:100px 0 60px;min-height:100vh}
+.ag{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}.ag .card{padding:24px}
+.rx{display:grid;place-items:center;width:100%;height:200px;border-radius:14px;border:3px solid var(--ln);background:var(--c);color:var(--ln);font:800 22px var(--d);text-align:center;cursor:pointer}.rx.w{background:var(--r)}.rx.g{background:var(--g)}
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:260px;margin:14px 0}.sp{aspect-ratio:1;border-radius:18px;border:3px solid var(--ln);cursor:pointer;opacity:.45;transition:.1s}.sp.lit{opacity:1;transform:scale(1.06);box-shadow:0 0 30px currentColor}
+#pkc{width:100%;height:auto;display:block;border-radius:12px;background:#120b4a;cursor:pointer;touch-action:manipulation}.pk{padding:12px;margin-bottom:22px}
+.tg .c1{background:var(--c);border-color:var(--ln)}.tg .c2{background:var(--p);border-color:var(--ln)}
 </style></head><body>
 <canvas id="bg"></canvas>
-<nav><div class="w"><a class="logo" href="#/">LUMARIS</a><a class="l" href="#/">Home</a><a class="l" href="#/battlebox">Battle Box</a><a class="l" href="#/prophunt">Prop Hunt</a><a class="l" href="#/players">Profiles</a>
+<nav><div class="w"><a class="logo" href="#/">LUMARIS</a><a class="l" href="#/">Home</a><a class="l" href="#/battlebox">Battle Box</a><a class="l" href="#/prophunt">Prop Hunt</a><a class="l" href="#/arcade">Arcade</a><a class="l" href="#/players">Profiles</a>
 <div class="sw"><input id="q" type="search" placeholder="Search a player..." aria-label="Search a player" autocomplete="off"><div class="sug" id="sug"></div></div></div></nav>
 <main id="home" class="view">
 <header class="hero"><div class="w"><div>
-<h1>Play together.<span class="gr" style="display:block">Climb the boards.</span></h1>
+<h1>Light up<span class="gr" style="display:block">the leaderboard.</span></h1>
 <p class="lead">Lumaris is a Minecraft server with ranked minigames, a hub parkour and player levels. Check the leaderboards and look up any profile.</p>
 <div class="ip" id="copy" role="button" tabindex="0" aria-label="Copy server address"><code id="ipT"></code><b>Copy IP</b></div>
 <div class="live" aria-live="polite"><div><strong id="on">0</strong><small><span class="dot"></span>online</small></div><div><strong id="hub">0</strong><small>in the hub</small></div><div><strong id="play">0</strong><small>in games</small></div><div><strong id="tot">0</strong><small>players</small></div></div><p class="note" style="margin-top:22px">Tip: click anywhere on the background.</p>
@@ -107,11 +129,14 @@ footer{padding:34px 0;color:var(--m);font-size:14px;text-align:center;border-top
 <div class="card mc rv" data-go="#/parkour" tabindex="0"><svg viewBox="0 0 64 64"><path d="M8 50h15V36h14V22h19" fill="none" stroke="#5ee7ff" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/></svg><h3>Hub Parkour</h3><p>A timed run in the hub. Your best time is saved and ranked server-wide.</p><div class="n">Best: <span id="m-pk">-</span></div></div>
 </div></div></section>
 <section id="leaderboards"><div class="w"><h2 class="rv">Top players</h2><p class="sub rv">Synced from the game database. Switch boards and click a player to open their profile.</p><div id="hb"></div><div class="note" id="note"></div></div></section>
-<section id="parkour"><div class="w"><h2 class="rv">Hub Parkour</h2><p class="sub rv">A timed run in the hub. Your best time is saved and ranked server-wide.</p><div id="pkb"></div></div></section>
+<section id="parkour"><div class="w"><h2 class="rv">Hub Parkour</h2><p class="sub rv">A timed run in the hub. Your best time is saved and ranked server-wide.</p><div class="card pk"><canvas id="pkc" width="640" height="180" aria-label="Parkour runner game"></canvas></div><div id="pkb"></div></div></section>
 <section id="join" style="text-align:center"><div class="w"><h2 class="rv">Ready when you are</h2><p class="sub rv" style="margin-inline:auto">Add the server in Minecraft Java 1.21.11 and you land in the hub.</p><div class="ip" id="copy2" role="button" tabindex="0"><code class="ipc"></code><b>Copy IP</b></div></div></section>
 </main>
 <div id="mode" class="view"></div>
 <div id="players" class="view"><div class="w"><h2>Player profiles</h2><p class="sub">Search any player, or pick one below to open their full stats.</p><input id="q2" class="big" type="search" placeholder="Type a name and press Enter" autocomplete="off" aria-label="Search players"><div class="grid" id="pg"></div></div></div>
+<div id="arcade" class="view"><div class="w"><h2>Arcade</h2><p class="sub">Warm up between matches. Nothing here counts toward your rank.</p><div class="ag">
+<div class="card"><h3>Hub reflex</h3><p class="sub" style="margin:4px 0 14px">Click when the box turns green.</p><button class="rx" id="rx">Click to start</button></div>
+<div class="card"><h3>Lumen memory</h3><p class="sub" style="margin:4px 0 0">Repeat the pattern. It grows every round.</p><div class="sg"><button class="sp" style="background:#ff5d73;color:#ff5d73" aria-label="Pad 1"></button><button class="sp" style="background:#ffd23f;color:#ffd23f" aria-label="Pad 2"></button><button class="sp" style="background:#3be8b0;color:#3be8b0" aria-label="Pad 3"></button><button class="sp" style="background:#4cc9f0;color:#4cc9f0" aria-label="Pad 4"></button></div><p id="sm" style="margin-bottom:12px">Press Start.</p><button class="tb" id="sst">Start</button></div></div></div></div>
 <div id="prof" class="view"><div class="w"><a class="back" href="#/players">&larr; Back to profiles</a><div id="pbody"></div></div></div>
 <footer>Lumaris is not affiliated with Mojang or Microsoft.</footer>
 
@@ -195,10 +220,10 @@ function plist(){const v=$('#q2').value.trim().toLowerCase(),r=Object.values(D.p
 $('#pg').innerHTML=r.map(p=>`<div class="card pc" data-n="${esc(p.name)}"><img src="${head(p.uuid,p.name)}" alt=""><div><b>${esc(p.name)}</b><br><small style="color:var(--m)">Level ${p.level}${p.online?' &middot; online':''}</small></div></div>`).join('')||'<div class="empty">No player found</div>'}
 function render(){live();if(V==='home'){board($('#hb'),tab,1,10);board($('#pkb'),'parkour',0,10)}else if(V==='mode')modePage();else if(V==='players')plist()}
 function route(){const h=decodeURIComponent(location.hash.slice(1)),m=h.match(/^\/p\/(.+)/),s=h.replace(/^\/?/,'');
-V=m?'prof':MI[s]?'mode':s==='players'?'players':'home';if(MI[s])MK=s;document.body.dataset.v=V;
+V=m?'prof':MI[s]?'mode':s==='players'?'players':s==='arcade'?'arcade':'home';if(MI[s])MK=s;document.body.dataset.v=V;
 const cur='#/'+(V==='prof'?'players':V==='mode'?MK:V==='home'?'':V);document.querySelectorAll('nav a.l').forEach(a=>a.classList.toggle('on',a.getAttribute('href')===cur));
 if(m)profile(m[1]);else render();
-document.title=(m?m[1]:V==='mode'?MI[MK][0]:V==='players'?'Profiles':'Lumaris - Battle Box, Prop Hunt & Parkour')+(V==='home'?'':' - Lumaris');
+document.title=(m?m[1]:V==='mode'?MI[MK][0]:V==='players'?'Profiles':V==='arcade'?'Arcade':'Lumaris - Battle Box, Prop Hunt & Parkour')+(V==='home'?'':' - Lumaris');
 scrollTo(0,0);if(V==='home'&&s)setTimeout(()=>document.getElementById(s)?.scrollIntoView(),30)}
 const go=n=>location.hash='/p/'+encodeURIComponent(n);
 document.addEventListener('click',e=>{const t=e.target.closest('[data-n]');if(t)return go(t.dataset.n);const c=e.target.closest('[data-go]');if(c)return location.hash=c.dataset.go;const b=e.target.closest('#hb button');if(b){tab=b.dataset.t;render()}});
@@ -227,6 +252,30 @@ function tick(t){x.clearRect(0,0,W,H);S=S.filter(s=>t-s.t<s.l);
 for(const s of S){const k=(t-s.t)/s.l;if(k<0)continue;const a=1-k,z=s.s*(1+k*.6);x.save();x.translate(s.x,s.y-k*40);x.rotate(s.r+k*.8);x.shadowColor='rgb('+s.c+')';x.shadowBlur=30*a;x.fillStyle='rgba('+s.c+','+a*.55+')';x.strokeStyle='rgba('+s.c+','+a+')';x.lineWidth=2;x.beginPath();x.roundRect(-z/2,-z/2,z,z,z/5);x.fill();x.stroke();x.restore()}
 if(S.length)requestAnimationFrame(tick);else{run=0;x.clearRect(0,0,W,H)}}
 document.addEventListener('pointerdown',e=>{if(e.target.closest('a,button,input,[data-n],[data-go],.card,.ip,nav,.sug'))return;const t=performance.now();
-for(let i=0;i<4;i++)S.push({x:e.clientX+(i?(Math.random()-.5)*110:0),y:e.clientY+(i?(Math.random()-.5)*110:0),s:16+Math.random()*28,r:Math.random(),t:t+i*80,l:1800,c:Math.random()<.5?'94,231,255':'179,136,255'});
+for(let i=0;i<4;i++)S.push({x:e.clientX+(i?(Math.random()-.5)*110:0),y:e.clientY+(i?(Math.random()-.5)*110:0),s:16+Math.random()*28,r:Math.random(),t:t+i*80,l:1800,c:['255,210,63','255,93,115','59,232,176','76,201,240'][Math.random()*4|0]});
 if(!run){run=1;requestAnimationFrame(tick)}});
+
+/* ---- parkour runner ---- */
+(()=>{const c=$('#pkc'),k=c.getContext('2d');let y=0,v=0,o=[],sc=0,on=0,sp=5,f=0,best=0;
+const msg=(a,b)=>{k.fillStyle='#fff8e7';k.textAlign='center';k.font='800 22px Bricolage Grotesque,sans-serif';k.fillText(a,320,78);k.font='15px DM Sans,sans-serif';k.fillText(b,320,104)};
+function draw(){k.clearRect(0,0,640,180);k.fillStyle='#3be8b0';k.fillRect(0,150,640,30);k.fillStyle='#ff5d73';o.forEach(b=>k.fillRect(b.x,150-b.h,b.w,b.h));
+k.fillStyle='#ffd23f';k.strokeStyle='#0b0630';k.lineWidth=3;k.fillRect(60,124-y,26,26);k.strokeRect(60,124-y,26,26);k.fillStyle='#fff8e7';k.textAlign='left';k.font='14px DM Sans,sans-serif';k.fillText('Score '+sc+'   Best '+best,12,22)}
+function end(){on=0;best=Math.max(best,sc);draw();msg('Crashed at '+sc,'Click or press Space to run again')}
+function loop(){if(!on)return;f++;if(f%Math.max(40,90-(sc/4|0))===0)o.push({x:640,w:16+Math.random()*24,h:18+Math.random()*28});
+v-=.7;y=Math.max(0,y+v);if(!y&&v<0)v=0;sp=5+sc/80;o.forEach(b=>b.x-=sp);if(o[0]&&o[0].x+o[0].w<0){o.shift();sc++}
+if(o.some(b=>b.x<86&&b.x+b.w>60&&y<b.h-2))return end();draw();requestAnimationFrame(loop)}
+const jump=()=>{if(!on){on=1;y=0;v=0;o=[];sc=0;f=0;loop()}else if(!y)v=11};
+c.onpointerdown=jump;addEventListener('keydown',e=>{const r=c.getBoundingClientRect();if(e.code==='Space'&&V==='home'&&!/INPUT|BUTTON/.test(document.activeElement.tagName)&&r.top<innerHeight&&r.bottom>0){e.preventDefault();jump()}});
+draw();msg('Hub Parkour','Click or press Space to jump')})();
+/* ---- reaction ---- */
+let rS='i',rT,rM;$('#rx').onclick=()=>{const e=$('#rx');
+if(rS==='i'){rS='w';e.className='rx w';e.textContent='Wait for green...';rM=setTimeout(()=>{rS='g';rT=performance.now();e.className='rx g';e.textContent='CLICK!'},1000+Math.random()*2500)}
+else if(rS==='w'){clearTimeout(rM);rS='i';e.className='rx';e.textContent='Too soon! Click to retry'}
+else{rS='i';const t=Math.round(performance.now()-rT);e.className='rx';e.textContent=t+' ms'+(t<250?' - fast!':'')+' Click to go again'}};
+/* ---- memory ---- */
+let sq=[],pi=0,lk=1;const pads=[...document.querySelectorAll('.sp')],fl=(i,m=350)=>{pads[i].classList.add('lit');setTimeout(()=>pads[i].classList.remove('lit'),m)};
+const sm=t=>$('#sm').textContent=t;
+async function plays(){lk=1;pi=0;sq.push(Math.random()*4|0);sm('Watch... round '+sq.length);for(const i of sq){await new Promise(r=>setTimeout(r,600));fl(i)}lk=0;sm('Your turn!')}
+pads.forEach((b,i)=>b.onclick=()=>{if(lk)return;fl(i,200);if(i!==sq[pi]){sm('Missed! You reached round '+sq.length+'. Press Start.');sq=[];lk=1;return}if(++pi===sq.length)setTimeout(plays,700)});
+$('#sst').onclick=()=>{sq=[];plays()};
 </script></body></html>
