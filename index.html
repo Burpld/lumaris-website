@@ -422,5 +422,33 @@ function store(){if(!/^#\/?store$/.test(location.hash))return;V='shop';document.
 addEventListener('hashchange',store);store();
 fetch('https://open.er-api.com/v6/latest/CAD').then(r=>r.json()).then(j=>{if(j&&j.rates&&j.rates.USD){FX=j.rates.USD;if(V==='shop')renderStore()}}).catch(()=>{});
 })();
+/* ===== LUMARIS UPDATE 2: Bedwars + Party Games (coming soon), parkour = leaderboard only =====
+   PASTE THIS whole block at the very end of your main script (right before </script>). */
+(()=>{
+const st=document.createElement('style');
+st.textContent='@media(min-width:861px){#modes .modes{grid-template-columns:repeat(2,1fr)}}.mc.soon{cursor:default}';
+document.head.appendChild(st);
+
+/* live() still writes to #m-pk, so keep a hidden stand-in for it */
+const dummy=document.createElement('span');dummy.id='m-pk';dummy.hidden=true;document.body.appendChild(dummy);
+
+/* replace the Hub Parkour card with the two coming-soon modes */
+const pkCard=document.querySelector('.mc[data-go="#/parkour"]');
+if(pkCard){
+ pkCard.insertAdjacentHTML('afterend',
+ '<div class="card mc soon"><svg viewBox="0 0 64 64"><rect x="8" y="22" width="12" height="12" fill="#b388ff"/><rect x="8" y="34" width="48" height="12" fill="#5ee7ff"/><rect x="8" y="46" width="6" height="8" fill="#b388ff"/><rect x="50" y="46" width="6" height="8" fill="#b388ff"/></svg><h3>Modern Bedwars</h3><p>Protect your bed, raid the others and be the last team standing.</p><div class="n">Coming soon</div></div>'+
+ '<div class="card mc soon"><svg viewBox="0 0 64 64"><rect x="10" y="10" width="44" height="44" fill="none" stroke="#b388ff" stroke-width="3"/><rect x="18" y="18" width="8" height="8" fill="#b388ff"/><rect x="28" y="28" width="8" height="8" fill="#b388ff"/><rect x="38" y="38" width="8" height="8" fill="#b388ff"/></svg><h3>Party Games</h3><p>A mix of quick minigames. Compete across rounds for the top score.</p><div class="n">Coming soon</div></div>');
+ pkCard.remove();
+}
+
+/* parkour section: leaderboard only, no playable game */
+const ps=document.getElementById('parkour');
+if(ps){
+ const h=ps.querySelector('h2'),s=ps.querySelector('.sub'),g=ps.querySelector('.pk');
+ if(h)h.textContent='Parkour leaderboard';
+ if(s)s.textContent='Fastest hub parkour times on the server. Click a player to open their profile.';
+ if(g)g.remove();
+}
+})();
 
 </script></body></html>
