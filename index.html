@@ -422,8 +422,6 @@ function store(){if(!/^#\/?store$/.test(location.hash))return;V='shop';document.
 addEventListener('hashchange',store);store();
 fetch('https://open.er-api.com/v6/latest/CAD').then(r=>r.json()).then(j=>{if(j&&j.rates&&j.rates.USD){FX=j.rates.USD;if(V==='shop')renderStore()}}).catch(()=>{});
 })();
-/* ===== LUMARIS UPDATE 2: Bedwars + Party Games (coming soon), parkour = leaderboard only =====
-   PASTE THIS whole block at the very end of your main script (right before </script>). */
 (()=>{
 const st=document.createElement('style');
 st.textContent='@media(min-width:861px){#modes .modes{grid-template-columns:repeat(2,1fr)}}.mc.soon{cursor:default}';
